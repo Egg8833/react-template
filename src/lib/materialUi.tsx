@@ -9,7 +9,7 @@ declare module '@mui/material/Button' {
 }
 
  const theme = createTheme({
-  spacing: 4,
+  // spacing: 4 // 全局設定間距 預設8px,
   palette: {
     primary: {
       main: "#FF5733",
@@ -57,7 +57,7 @@ declare module '@mui/material/Button' {
 
 export const MaterialWrapper = ({ children }: { children: React.ReactNode }) => (
   <>
-    <CssBaseline />
+    {/* <CssBaseline /> */}
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </>
 );
