@@ -1,41 +1,17 @@
-// import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Button, Typography } from "@mui/material";
-import { useCounterStore } from "./store/counterStore.ts";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
+import Layout from "./layout/Layout";
+import Home from "@/pages/Home";
+import About from "@/pages/About";
 
-
-
-function App() {
- const { count, increment, decrement } = useCounterStore();
-
+export default function App() {
   return (
-    <>
-
-      <div>
-        <a href="https://vite.dev" target="_blank" className=''>
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 >Vite + React</h1>
-      <Typography variant="h1">Vite + React TTT</Typography>
-       <Typography variant="h2">Count: {count}</Typography>
-      <Button variant="contained" color="primary" onClick={increment} style={{ margin: "10px" }}>
-        Increment
-      </Button>
-      <Button variant="contained" color="secondary" onClick={decrement}>
-        Decrement
-      </Button>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />  {/* ✅ `index` 代表 `/` */}
+          <Route path="about" element={<About />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
-
-export default App
