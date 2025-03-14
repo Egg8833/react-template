@@ -1,5 +1,6 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
-import Greeting from "./Greeting";
+import Greeting from "../../src/pages/Greeting";
 import { describe, test, expect } from "vitest";
 import "@testing-library/jest-dom";
 
