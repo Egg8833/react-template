@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Counter from "../../src/pages/Counter";
 import { describe, it, expect } from "vitest";
-import "@testing-library/jest-dom";
+
 
 import userEvent from "@testing-library/user-event";  // 🔹 模擬用戶操作（如點擊）
 
