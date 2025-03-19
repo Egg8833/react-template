@@ -1,8 +1,12 @@
-import { useCounter } from "@/hooks/useCounter";
+// import { useCounter } from "@/hooks/useCounter";
+import { useCounterStore } from "@/store/counterStore";
+
 
 export default function Counter() {
-  const { count, increment, decrement } = useCounter(0);
 
+  const count = useCounterStore(state => state.count);
+  const increment = useCounterStore(state => state.increment);
+  const decrement = useCounterStore(state => state.decrement);
   return (
     <div>
       <h1 data-test-id="counter-value">{count}</h1> {/* 用於測試識別計數值 */}

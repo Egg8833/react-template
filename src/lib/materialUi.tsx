@@ -57,7 +57,7 @@ declare module '@mui/material/Button' {
 
 export const MaterialWrapper = ({ children }: { children: React.ReactNode }) => (
   <>
-    {/* <CssBaseline /> */}
+    <CssBaseline />
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </>
 );

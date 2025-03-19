@@ -1,9 +1,16 @@
+import Sidebar from "@/components/SideBar";
+import Header from "@/components/Header";
+import { Box } from "@mui/material";
 import { Link, Outlet } from "react-router";
 
 export default function Layout() {
   return (
-    <div>
-      <nav>
+    <>
+    <Header/>
+    <Box sx={{ display: "flex" }}>
+      <Sidebar/>
+      <Outlet /> {/* 這裡會渲染對應的子頁面 */}
+        <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
@@ -11,8 +18,7 @@ export default function Layout() {
           <li><Link to="/counter">Counter</Link></li>
         </ul>
       </nav>
-      <hr />
-      <Outlet /> {/* 這裡會渲染對應的子頁面 */}
-    </div>
+    </Box >
+    </>
   );
 }
