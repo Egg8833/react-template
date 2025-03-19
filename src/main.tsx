@@ -4,7 +4,7 @@ import ReactDOM,{createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import {MaterialWrapper} from './lib/materialUi.tsx'
-// import 'virtual:uno.css'
+import 'virtual:uno.css'
 
 const root = document.getElementById('root') as HTMLElement;
 

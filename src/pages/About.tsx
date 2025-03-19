@@ -131,7 +131,7 @@ const MemberTable: React.FC = () => {
     overflowX: 'auto',
     p: 2
   }}>
-      <h2>會員帳號管理</h2>
+      <h2 className='m-0 mb-2 '>會員帳號管理</h2>
       <Box sx={{minWidth: 800}}>
         <CustomDataTable rows={rows} columns={columns} />
 

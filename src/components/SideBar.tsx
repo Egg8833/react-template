@@ -9,13 +9,20 @@ import {
   Box,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-
+import { Link } from "react-router";
 // 選單項目
 const menuItems = [
-  { text: "會員帳號管理" },
-  { text: "商品列表調整" },
-  { text: "權限調整" },
-  { text: "管理者專區", subItems: ["會員狀態管理", "隱藏指定功能"] },
+  { text: "會員帳號管理", path: "/accountManagement" },
+  { text: "商品列表調整", path: "/productList" },
+  { text: "權限調整", path: "/permissions" },
+  {
+    text: "管理者專區",
+    path: "",
+    subItems: [
+      { text: "會員狀態管理", path: "/admin/memberStatus" },
+      { text: "隱藏指定功能", path: "/admin/hideFeatures" },
+    ],
+  },
 ];
 
 const Sidebar: React.FC = () => {
@@ -30,7 +37,7 @@ const Sidebar: React.FC = () => {
     }
   };
 
-  return (
+   return (
     <Drawer
       variant="permanent"
       sx={{
@@ -38,22 +45,24 @@ const Sidebar: React.FC = () => {
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: 250,
-          backgroundColor: "#f5f5f5",
-          height: "calc(100% - 60px)",
+          backgroundColor: "#f5f5f5", // 淺灰色背景
           top: "60px",
+          height: "calc(100vh - 60px)"
         },
       }}
     >
       <Box sx={{ overflow: "auto" }}>
         <List>
-          {menuItems.map(({ text, subItems }) => (
+          {menuItems.map(({ text, path, subItems }) => (
             <React.Fragment key={text}>
               <ListItem disablePadding>
                 <ListItemButton
+                  component={path ? Link : "button"}
+                  to={path ? path : undefined}
                   onClick={() => handleMenuClick(text)}
                   selected={selectedItem === text}
                   sx={{
-                    "&.Mui-selected": { backgroundColor: "#e0e0e0" }, // 選中顏色
+                    "&.Mui-selected": { backgroundColor: "#e0e0e0" }, // 選中背景色
                   }}
                 >
                   <ListItemText primary={text} />
@@ -65,14 +74,16 @@ const Sidebar: React.FC = () => {
               {subItems && (
                 <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {subItems.map((subItem) => (
-                      <ListItem key={subItem} disablePadding>
+                    {subItems.map(({ text, path }) => (
+                      <ListItem key={text} disablePadding>
                         <ListItemButton
+                          component={Link}
+                          to={path} // 子選單路徑
                           sx={{ pl: 4 }} // 縮排
-                          onClick={() => handleMenuClick(subItem)}
-                          selected={selectedItem === subItem}
+                          onClick={() => handleMenuClick(text)}
+                          selected={selectedItem === text}
                         >
-                          <ListItemText primary={subItem} />
+                          <ListItemText primary={text} />
                         </ListItemButton>
                       </ListItem>
                     ))}
