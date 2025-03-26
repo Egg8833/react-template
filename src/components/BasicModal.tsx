@@ -5,17 +5,17 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import CloseIcon from '@mui/icons-material/Close'
 
-const style = {
+const getModalStyle = (ModalWidth: number = 400) => ({
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: ModalWidth,
   bgcolor: 'background.paper',
   border: '1px solid #000',
   boxShadow: 24,
   p: 4,
-}
+})
 
 const closeIconStyle = {
   position: 'absolute',
@@ -33,6 +33,7 @@ interface BasicModalProps {
   title: string
   children?: React.ReactNode
   triggerType?: 'button' | 'text' | 'none'
+  ModalWidth?: number
 }
 
 const BasicModal: React.FC<BasicModalProps> = ({
@@ -40,7 +41,8 @@ const BasicModal: React.FC<BasicModalProps> = ({
   setOpen,
   title,
   children,
-  triggerType = 'button', // 預設為按鈕
+  triggerType = 'button',
+  ModalWidth ,
 }) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -66,7 +68,7 @@ const BasicModal: React.FC<BasicModalProps> = ({
         onClose={handleClose}
         aria-labelledby="modal-title"
         aria-describedby="modal-content">
-        <Box sx={style}>
+        <Box sx={getModalStyle(ModalWidth)}>
           <CloseIcon onClick={handleClose} sx={closeIconStyle} />
           <Typography id="modal-title" variant="h6" component="h2" sx={{ textAlign: 'center', mb: 2 }}>
             {title}
