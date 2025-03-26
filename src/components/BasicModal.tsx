@@ -12,7 +12,7 @@ const getModalStyle = (ModalWidth: number = 400) => ({
   transform: 'translate(-50%, -50%)',
   width: ModalWidth,
   bgcolor: 'background.paper',
-  border: '1px solid #000',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 })
