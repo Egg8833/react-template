@@ -2,6 +2,7 @@ import React from 'react'
 import { GridColDef} from '@mui/x-data-grid'
 import {Button, Box} from '@mui/material'
 import { CustomDataTable } from '@/components/CustomDataTable'
+import { useCounterStore } from '@/store/counterStore'
 interface Member {
   id: number
   account: string
@@ -13,7 +14,13 @@ interface Member {
   lastUpdate: string
 }
 
-const columns: GridColDef[] = [
+
+
+const MemberTable: React.FC = () => {
+  const count = useCounterStore(state => state.count)
+  const {increment, decrement} = useCounterStore()
+  console.log(count)
+  const columns: GridColDef[] = [
   {
     field: 'id',
     headerName: '期貨商代號',
@@ -123,19 +130,18 @@ const handleEdit = (id: number) => {
 const handleDelete = (id: number) => {
   alert(`刪除會員 ID: ${id}`)
 }
-
-const MemberTable: React.FC = () => {
   return (
     <Box sx={{
     width: '95%',
     overflowX: 'auto',
     p: 2
   }}>
-      <h2 className='m-0 mb-2 '>會員帳號管理</h2>
+      <h2 className='m-0 mb-2 '>會員帳號管理 {count}</h2>
       <Box sx={{minWidth: 800}}>
         <CustomDataTable rows={rows} columns={columns} />
-
       </Box>
+      <Button onClick={increment}>+</Button>
+      <Button onClick={decrement}>-</Button>
     </Box>
   )
 }

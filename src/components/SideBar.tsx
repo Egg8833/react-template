@@ -20,7 +20,9 @@ const menuItems = [
     path: "",
     subItems: [
       { text: "會員狀態管理", path: "/admin/memberStatus" },
-      { text: "隱藏指定功能", path: "/admin/hideFeatures" },
+      // { text: "隱藏指定功能", path: "/admin/hideFeatures" },
+      { text: "隱藏指定功能", path: "test" },
+      { text: "Login", path: "login" },
     ],
   },
 ];
