@@ -10,6 +10,7 @@ interface SelectBaseProps {
   selectWidth?: string
   disabled?: boolean
   showLabel?: boolean
+  labelRow?: boolean;
   labelWidth?: string
 }
 
@@ -22,6 +23,7 @@ const SelectBase: React.FC<SelectBaseProps> = ({
   selectWidth = '200px',
   disabled = false,
   showLabel = true,
+   labelRow = true,
   labelWidth,
 }) => {
   const dynamicStyles = {
@@ -38,9 +40,9 @@ const SelectBase: React.FC<SelectBaseProps> = ({
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={`${labelRow ? "flex" : ""} items-center  gap-2 `}>
       {showLabel && (
-        <label style={{width: labelWidth}} htmlFor={selectId}>
+        <label style={{width: labelWidth,display: 'block'}} htmlFor={selectId}>
           {selectName}
         </label>
       )}

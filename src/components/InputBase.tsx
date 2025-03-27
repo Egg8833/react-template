@@ -14,6 +14,7 @@ interface InputBaseProps {
   children?: React.ReactNode;
   labelWidth?: string;
   disabled?: boolean;
+  type?: string;
 }
 
 const InputBase: React.FC<InputBaseProps> = ({
@@ -27,8 +28,10 @@ const InputBase: React.FC<InputBaseProps> = ({
   showLabel = true,
   labelRow = true,
   disabled = false,
+  type = "text",
   labelWidth,
   children,
+
 }) => {
 
   const dynamicStyles = {
@@ -45,8 +48,8 @@ const InputBase: React.FC<InputBaseProps> = ({
   };
 
   return (
-    <div className={` items-center ${labelRow ? "flex" : ""} gap-2 `}>
-      {showLabel && <label style={{ width: labelWidth }}
+    <div className={`${labelRow ? "flex" : ""} items-center gap-2 `}>
+      {showLabel && <label style={{ width: labelWidth,display: "block" }}
        htmlFor={inputId}>{inputName}</label>}
 
       <TextField
@@ -57,6 +60,7 @@ const InputBase: React.FC<InputBaseProps> = ({
         disabled={disabled}
         helperText={helperText}
         sx={dynamicStyles}
+        type={type}
       />
       {children}
     </div>
