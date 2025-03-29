@@ -1,54 +1,80 @@
 # React + TypeScript + Vite + Mui + UnoCss
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+此專案是一個基於 React、TypeScript、Vite 的模板，整合了 Material-UI 和 UnoCSS，適合快速構建現代化的前端應用。
 
-Currently, two official plugins are available:
+## 功能特性
+- **React 19**：最新版本的 React，支持最新的功能。
+- **TypeScript**：提供靜態類型檢查，提升代碼質量。
+- **Vite**：快速的開發伺服器和構建工具。
+- **Material-UI**：現代化的 UI 組件庫。
+- **UnoCSS**：高效的原子化 CSS 工具。
+- **React Hook Form + Zod**：表單驗證和管理。
+- **Zustand**：輕量級的狀態管理工具。
+- **React Query**：數據請求和緩存管理。
+- **Vitest**：單元測試框架，支持 React 組件測試。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 安裝與啟動
+1. 安裝依賴：
+   ```bash
+   npm install
+   ```
+2. 啟動開發伺服器：
+   ```bash
+   npm run dev
+   ```
+3. 構建專案：
+   ```bash
+   npm run build
+   ```
+4. 預覽構建結果：
+   ```bash
+   npm run preview
+   ```
+5. 執行測試：
+   ```bash
+   npm run test
+   ```
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 目錄結構
+```
+react-template/
+├── src/
+│   ├── components/       # 可重用的 React 組件
+│   ├── constants/        # 常量定義
+│   ├── hooks/            # 自定義 Hook
+│   ├── layout/           # 頁面佈局
+│   ├── lib/              # 第三方庫的封裝
+│   ├── pages/            # 頁面組件
+│   ├── store/            # Zustand 狀態管理
+│   ├── type/             # TypeScript 類型定義
+│   ├── App.tsx           # 應用的入口組件
+│   ├── main.tsx          # 應用的主入口
+│   └── index.css         # 全局樣式
+├── tests/                # 測試文件
+├── public/               # 靜態資源
+├── package.json          # 項目依賴和腳本
+├── tsconfig.json         # TypeScript 配置
+├── vite.config.ts        # Vite 配置
+└── README.md             # 使用說明
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 測試
+本專案使用 Vitest 作為測試框架，並結合 Testing Library 測試 React 組件。
+- 執行所有測試：
+  ```bash
+  npm run test
+  ```
+- 啟動測試 UI：
+  ```bash
+  npm run test:ui
+  ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 開發建議
+- 使用 `Zustand` 管理全局狀態。
+- 使用 `React Query` 處理數據請求和緩存。
+- 使用 `React Hook Form` 和 `Zod` 驗證表單數據。
+- 使用 `Material-UI` 快速構建 UI。
+- 使用 `UnoCSS` 實現高效的樣式管理。
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 貢獻
+歡迎提交 Issue 或 Pull Request，幫助改進此模板。
