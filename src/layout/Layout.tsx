@@ -7,9 +7,11 @@ export default function Layout() {
   return (
     <>
     <Header/>
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
       <Sidebar/>
+      <div className="flex-1 p-4 " >
       <Outlet />
+      </div>
     </Box >
     </>
   );

@@ -34,11 +34,12 @@ const Login2: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ margin: "auto", marginTop: "100px" }}>
+    <Box sx={{  width: '600px', margin: 'auto',marginTop: '100px'  }}>
       <Paper elevation={3} sx={{ padding: 12, }}>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h5" gutterBottom>
+          <form  className="w-300px mx-auto"
+          onSubmit={handleSubmit(onSubmit)}>
+            <Typography variant="h5" align="center" gutterBottom>
               登入
             </Typography>
             <div className="flex flex-col gap-4">

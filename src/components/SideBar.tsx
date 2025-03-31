@@ -46,11 +46,14 @@ const Sidebar: React.FC = () => {
       sx={{
         width: 250,
         flexShrink: 0,
+        backgroundColor: "#f5f5f5",
         "& .MuiDrawer-paper": {
           width: 250,
-          backgroundColor: "#f5f5f5", // 淺灰色背景
           top: "60px",
-          height: "calc(100vh - 60px)"
+          backgroundColor: "#f5f5f5",
+          height: "calc(100vh - 60px)",
+          position: "absolute",
+          borderRight: "0px ",
         },
       }}
     >

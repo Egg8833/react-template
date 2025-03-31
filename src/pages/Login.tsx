@@ -21,10 +21,11 @@ const Login: React.FC = () => {
   }
 
   return (
-    <Box sx={{ margin: 'auto', marginTop: '100px' }}>
+    <Box sx={{ width: '600px', margin: 'auto',marginTop: '100px' }}>
       <Paper elevation={3} sx={{ padding: 12, textAlign: 'center' }}>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form className="w-300px mx-auto"
+          onSubmit={handleSubmit(onSubmit)}>
             <Typography variant="h5" gutterBottom>
               登入
             </Typography>

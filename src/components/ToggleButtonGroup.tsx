@@ -8,24 +8,15 @@ export default function ToggleButtonGroup() {
   return (
     <ButtonGroup variant="contained">
       <Button
+        variant={selected === "left" ? "contained" : "outlined"}
+
         onClick={() => setSelected("left")}
-        sx={{
-          backgroundColor: selected === "left" ? "#333" : "#1976d2", // 選中時深色，否則預設顏色
-          "&:hover": {
-            backgroundColor: selected === "left" ? "#222" : "#1565c0", // 滑鼠懸停時的顏色
-          },
-        }}
       >
         Left
       </Button>
       <Button
         onClick={() => setSelected("right")}
-        sx={{
-          backgroundColor: selected === "right" ? "#333" : "#1976d2", // 選中時深色
-          "&:hover": {
-            backgroundColor: selected === "right" ? "#222" : "#1565c0",
-          },
-        }}
+        variant={selected === "right" ? "contained" : "outlined"}
       >
         Right
       </Button>
