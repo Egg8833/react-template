@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-
+import {  useFormContext } from "react-hook-form"
 
 /**
  * 通用輸入框元件 (基於 MUI `TextField`)
@@ -9,8 +9,7 @@ import TextField from "@mui/material/TextField";
  * @param {Object} props - 元件的 `props`
  * @param {string} props.inputName - 輸入框的標籤名稱
  * @param {string} props.inputId - 輸入框的 `id`，對應 `label` 的 `htmlFor`
- * @param {string} props.value - 輸入框的值
- * @param {(e: React.ChangeEvent<HTMLInputElement>) => void} props.onChange - 值變更時的事件處理函數
+
  * @param {boolean} [props.error=false] - 是否顯示錯誤狀態（錯誤時變紅）
  * @param {string} [props.helperText=""] - 錯誤訊息（當 `error=true` 時顯示）
  * @param {string} [props.inputWidth="200px"] - 輸入框的寬度
@@ -26,35 +25,37 @@ import TextField from "@mui/material/TextField";
 interface InputBaseProps {
   inputName: string;
   inputId: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: boolean;
-  helperText?: string;
   inputWidth?: string;
   showLabel?: boolean;
   labelRow?: boolean;
   children?: React.ReactNode;
   labelWidth?: string;
   disabled?: boolean;
-  type?: string;
+  type?: "text" | "password" | "number" | "email";
+  errorStyleMb?: boolean;
+  labelStyle?: React.CSSProperties;
 }
 
 const InputBase: React.FC<InputBaseProps> = ({
   inputName,
   inputId,
-  value,
-  onChange,
-  error = false,
-  helperText = "",
   inputWidth = "200px",
   showLabel = true,
   labelRow = true,
-  disabled = false,
-  type = "text",
   labelWidth,
+  disabled = false,
+  errorStyleMb = true,
+  type = "text",
   children,
+  labelStyle,
+
 
 }) => {
+  const { register, formState: { errors }, } = useFormContext();
+
+   // 取得對應欄位的錯誤資訊
+  const errorMessage = errors[inputId]?.message as string | undefined;
+  const hasError = !!errorMessage;
 
   const dynamicStyles = {
     width: inputWidth,
@@ -70,19 +71,28 @@ const InputBase: React.FC<InputBaseProps> = ({
   };
 
   return (
-    <div className={`${labelRow ? "flex" : ""} items-center gap-2 `}>
-      {showLabel && <label style={{ width: labelWidth,display: "block" }}
+    <div className={`${labelRow ? "flex" : ""} ${(hasError&&errorStyleMb) ? "mb-5" : ""} items-center gap-2 `}>
+      {showLabel && <label style={{ width: labelWidth,display: "block",...labelStyle }}
        htmlFor={inputId}>{inputName}</label>}
 
       <TextField
         id={inputId}
-        value={value}
-        onChange={onChange}
-        error={error}
+        error={hasError}
+        helperText={errorMessage}
         disabled={disabled}
-        helperText={helperText}
         sx={dynamicStyles}
         type={type}
+        {...register(inputId)}
+        autoComplete="off"
+        slotProps={{
+    formHelperText: {
+      sx: {
+        position: "absolute",
+        bottom: "-24px",
+        whiteSpace: "nowrap",
+      },
+    },
+  }}
       />
       {children}
     </div>

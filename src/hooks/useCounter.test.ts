@@ -44,4 +44,37 @@ describe("Counter", () => {
     expect(result.current.count).toBe(-2);
   })
 
+  it("multiply", () => {
+    const { result } = renderHook(() => useCounter(2));
+    expect(result.current.count).toBe(2);
+
+    act(() => {
+      result.current.multiply(3);
+    });
+
+    expect(result.current.count).toBe(6);
+
+    act(() => {
+      result.current.multiply(0);
+    });
+
+    expect(result.current.count).toBe(0);
+  });
+
+  it("divide", () => {
+    const { result } = renderHook(() => useCounter(10));
+    expect(result.current.count).toBe(10);
+
+    act(() => {
+      result.current.divide(2);
+    });
+
+    expect(result.current.count).toBe(5);
+
+    act(() => {
+      result.current.divide(0);
+    });
+
+    expect(result.current.count).toBe(5); // Division by zero should not change the count
+  });
 });

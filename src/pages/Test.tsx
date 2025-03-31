@@ -1,11 +1,22 @@
 import React, {useState} from 'react'
-import InputBase from '@/components/InputBase'
-import SelectBase from '@/components/SelectBase'
+import InputBase from '@/components/RHForm/InputBase'
+import SelectBase from '@/components/RHForm/SelectBase'
 import Input from '@/components/Input'
 import BasicModal from '@/components/BasicModal'
 import {SelectChangeEvent, Button} from '@mui/material'
+import {useForm,FormProvider,Controller} from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {FormData,schema,defaultValues} from '@/type/schema'
+import {DevTool} from '@hookform/devtools'
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 const Test = () => {
+
+   const methods  = useForm<FormData>({
+    mode: 'all', resolver: zodResolver(schema),defaultValues})
+    const {  handleSubmit,control } = methods;
+
    const [open, setOpen] = useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
@@ -15,68 +26,22 @@ const Test = () => {
     {value: 'IOC', label: 'IOC'},
   ]
 
-  // 集中管理所有輸入框的狀態
-  const [formData, setFormData] = useState({
-    account: '',
-    password: '',
-    nickname: '',
-    flowNo: '',
-    orderType: orderOptions[0].value, // 預設選擇第一個選項
-  })
-
-  const [errors, setErrors] = useState({
-    account: false,
-    password: false,
-    nickname: false,
-  })
-
-  // 更新表單資料
-  const handleChange =
-    (field: string) =>
-    (e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>) => {
-      setFormData(prev => ({...prev, [field]: e.target.value}))
-      if (e.target.value.trim() !== '') {
-        setErrors(prev => ({...prev, [field]: false}))
-      }
-    }
-
-  // 表單驗證
-  const validateForm = () => {
-    const newErrors = {account: false, password: false, nickname: false}
-    let isValid = true
-
-    Object.keys(newErrors).forEach(key => {
-      if (formData[key as keyof typeof formData].trim() === '') {
-        newErrors[key as keyof typeof newErrors] = true
-        isValid = false
-      }
-    })
-
-    setErrors(newErrors)
-    return isValid
-  }
 
   // 提交表單
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (validateForm()) {
-      console.log('✅ 表單資料：', formData)
-      alert('表單提交成功！')
-    } else {
-      console.log('❌ 表單驗證失敗！')
-    }
+  const onSubmit = (data: FormData) => {
+    console.log('Form Data:', data);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+
+    <FormProvider {...methods}>
+    <form  onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
         <InputBase
           inputName="委託書編號"
           inputId="account"
           labelWidth="150px"
-          value={formData.account}
-          onChange={handleChange('account')}
-          error={errors.account}
+
 
           children={
             <div className="flex items-center gap-4">
@@ -87,28 +52,23 @@ const Test = () => {
                 inputId="flowNo"
                 inputWidth="70px"
                 showLabel={false}
-                value={formData.flowNo}
-                onChange={handleChange('flowNo')}
-                error={errors.account}
+                errorStyleMb={false}
+
               />
             </div>
           }
         />
         <InputBase
-          inputName="商品"
-          inputId="password"
+          inputName="name"
+          inputId="name"
           labelWidth="150px"
-          value={formData.password}
-          onChange={handleChange('password')}
-          error={errors.password}
+
         />
         <InputBase
-          inputName="商品代號"
-          inputId="nickname"
+          inputName="email"
+          inputId="email"
           labelWidth="150px"
-          value={formData.nickname}
-          onChange={handleChange('nickname')}
-          error={errors.nickname}
+
         />
         <Input/>
         <div>
@@ -132,12 +92,9 @@ const Test = () => {
         <SelectBase
           selectName="訂單類型"
           selectId="orderType"
-          value={formData.orderType}
           labelWidth="150px"
           labelRow={false}
-          onChange={handleChange('orderType')}
           options={orderOptions}
-
         />
          <BasicModal propsOpen={open} setOpen={setOpen} title='這是MOdal' triggerType='text' ModalWidth={600}
         children={
@@ -163,7 +120,20 @@ const Test = () => {
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
         提交
       </button>
+       <Controller
+        name="checkName"
+        control={control}
+        render={({ field }) => (
+          <FormControlLabel
+            control={<Checkbox {...field} checked={field.value} />}
+            label="你好棒"
+          />
+        )}
+      />
     </form>
+    <DevTool control={methods.control
+    } ></DevTool>
+    </FormProvider>
   )
 }
 

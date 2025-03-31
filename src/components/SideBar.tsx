@@ -23,6 +23,7 @@ const menuItems = [
       // { text: "隱藏指定功能", path: "/admin/hideFeatures" },
       { text: "隱藏指定功能", path: "test" },
       { text: "Login", path: "login" },
+      { text: "Login2", path: "login2" }, // 新增 Login2 選單項目
     ],
   },
 ];
