@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Box, Typography } from '@mui/material'
 import { CustomDataTable } from '@/components/CustomDataTable'
 import { GridColDef } from '@mui/x-data-grid'

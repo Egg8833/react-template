@@ -3,7 +3,29 @@ import { Box, Typography, Collapse, IconButton, Table, TableBody, TableCell, Tab
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const rowsFutures = [
+interface FuturesRow {
+  key: number;
+  futuresId: string;
+  account: string;
+  session: string;
+  product1: string;
+  product2: string;
+  address: string;
+  children?: FuturesRow[];
+}
+
+const columnWidths = {
+  toggle: '40px',
+  futuresId: '120px',
+  account: '100px',
+  session: '120px',
+  product1: '100px',
+  product2: '100px',
+  address: '200px',
+  actions: '120px'
+};
+
+const rowsFutures: FuturesRow[] = [
   {
     key: 1,
     futuresId: 'F123',
@@ -44,40 +66,22 @@ const rowsFutures = [
   },
 ];
 
-const handleEdit = (id) => {
-  alert(`編輯 ${id}`);
-};
-
-const handleDelete = (id) => {
-  alert(`刪除 ${id}`);
-};
-
 const FuturesTable = () => {
-  const [openRow, setOpenRow] = useState(null);
+  const [openRow, setOpenRow] = useState<number | null>(null);
 
-  const toggleRow = (id) => {
+  const handleEdit = (id: string) => {
+    alert(`編輯 ${id}`);
+  };
+
+  const handleDelete = (id: string) => {
+    alert(`刪除 ${id}`);
+  };
+
+  const toggleRow = (id: number) => {
     setOpenRow(openRow === id ? null : id);
   };
 
-  // 定义统一的列宽
-  const columnWidths = {
-    toggle: '40px',
-    futuresId: '120px',
-    account: '100px',
-    session: '120px',
-    product1: '100px',
-    product2: '100px',
-    address: '200px',
-    actions: '120px'
-  };
-
-  // 设置表头样式
-  const headCellStyle = {
-    fontWeight: 'bold',
-    backgroundColor: '#f5f5f5'
-  };
-
-  const renderRows = (data, isNested = false) => {
+  const renderRows = (data: FuturesRow[], isNested = false) => {
     return data.map((row) => (
       <React.Fragment key={row.key}>
         <TableRow>
@@ -105,8 +109,9 @@ const FuturesTable = () => {
               <Collapse in={openRow === row.key} timeout="auto" unmountOnExit>
                 <Box sx={{ margin: 1 }}>
                   <Table size="small" sx={{ tableLayout: 'fixed', width: '100%' }}>
-
-                    <TableBody>{renderRows(row.children, true)}</TableBody>
+                    <TableBody>
+                      {renderRows(row.children, true)}
+                    </TableBody>
                   </Table>
                 </Box>
               </Collapse>
@@ -115,6 +120,12 @@ const FuturesTable = () => {
         )}
       </React.Fragment>
     ));
+  };
+
+  // 设置表头样式
+  const headCellStyle = {
+    fontWeight: 'bold',
+    backgroundColor: '#f5f5f5'
   };
 
   return (

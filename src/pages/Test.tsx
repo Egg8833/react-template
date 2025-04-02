@@ -1,15 +1,17 @@
-import React, {useState} from 'react'
-import InputBase from '@/components/RHForm/InputBase'
-import SelectBase from '@/components/RHForm/SelectBase'
-import Input from '@/components/Input'
-import BasicModal from '@/components/BasicModal'
-import {SelectChangeEvent, Button} from '@mui/material'
+import {useState} from 'react'
+import {Button} from '@mui/material'
 import {useForm,FormProvider,Controller} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {FormData,schema,defaultValues} from '@/type/schema'
 import {DevTool} from '@hookform/devtools'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from "@mui/material/FormControlLabel";
+import TableMarket from '@/components/TableMarket'
+import ToggleButtonGroup from '@/components/ToggleButtonGroup'
+import InputBase from '@/components/RHForm/InputBase'
+import SelectBase from '@/components/RHForm/SelectBase'
+import Input from '@/components/Input'
+import BasicModal from '@/components/BasicModal'
 
 const Test = () => {
 
@@ -34,6 +36,7 @@ const Test = () => {
 
   return (
 
+    <div className="">
     <FormProvider {...methods}>
     <form  onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
@@ -134,6 +137,11 @@ const Test = () => {
     <DevTool control={methods.control
     } ></DevTool>
     </FormProvider>
+    <div className="pl-4">
+    <TableMarket/>
+    </div>
+    <ToggleButtonGroup/>
+    </div>
   )
 }
 

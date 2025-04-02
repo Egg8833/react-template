@@ -1,5 +1,3 @@
-import React from 'react'
-
 const ProductImagGallery = ({imageUrls}: {imageUrls: string[]}) => {
   if(imageUrls.length === 0) return null
 

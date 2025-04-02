@@ -34,7 +34,7 @@ const PermissionTable: React.FC = () => {
 
   // 點擊儲存格時，切換 `true` ↔ `false`
   const handleCellClick = (id: number, field: keyof MemberPermission) => {
-    if (editableRow !== id || field === 'role' || field === 'actions') return;
+    if (editableRow !== id || field === 'role' || field.toString() === 'actions') return;
 
     setRows((prevRows) =>
       prevRows.map((row) =>
