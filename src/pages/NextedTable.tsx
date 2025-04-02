@@ -122,7 +122,7 @@ const FuturesTable = () => {
     ));
   };
 
-  // 设置表头样式
+  // 表頭樣式
   const headCellStyle = {
     fontWeight: 'bold',
     backgroundColor: '#f5f5f5'

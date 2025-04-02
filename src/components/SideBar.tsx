@@ -9,7 +9,8 @@ import {
   Box,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { Link } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
+
 // 選單項目
 const menuItems = [
   { text: "會員帳號管理", path: "/accountManagement" },
@@ -24,6 +25,7 @@ const menuItems = [
       { text: "隱藏指定功能", path: "test" },
       { text: "Login", path: "login" },
       { text: "Login2", path: "login2" }, // 新增 Login2 選單項目
+      { text: "nextedTable", path: "nextedTable" }, // 新增 nextedTable 選單項目
     ],
   },
 ];
@@ -40,7 +42,7 @@ const Sidebar: React.FC = () => {
     }
   };
 
-   return (
+  return (
     <Drawer
       variant="permanent"
       sx={{
@@ -63,12 +65,12 @@ const Sidebar: React.FC = () => {
             <React.Fragment key={text}>
               <ListItem disablePadding>
                 <ListItemButton
-                  component={path ? Link : "button"}
-                  to={path ? path : undefined}
+                  component={path ? RouterLink : "button"}
+                  to={path || undefined}
                   onClick={() => handleMenuClick(text)}
                   selected={selectedItem === text}
                   sx={{
-                    "&.Mui-selected": { backgroundColor: "#e0e0e0" }, // 選中背景色
+                    "&.Mui-selected": { backgroundColor: "#e0e0e0" },
                   }}
                 >
                   <ListItemText primary={text} />
@@ -76,16 +78,15 @@ const Sidebar: React.FC = () => {
                 </ListItemButton>
               </ListItem>
 
-              {/* 子選單 (管理者專區) */}
               {subItems && (
                 <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                     {subItems.map(({ text, path }) => (
                       <ListItem key={text} disablePadding>
                         <ListItemButton
-                          component={Link}
-                          to={path} // 子選單路徑
-                          sx={{ pl: 4 }} // 縮排
+                          component={RouterLink}
+                          to={path}
+                          sx={{ pl: 4 }}
                           onClick={() => handleMenuClick(text)}
                           selected={selectedItem === text}
                         >
