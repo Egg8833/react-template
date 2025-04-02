@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import { Select, MenuItem } from "@mui/material";
 import { useFormContext, Controller } from "react-hook-form";
 
@@ -31,7 +32,7 @@ const SelectBase: React.FC<SelectBaseProps> = ({
   const errorMessage = errors[selectId]?.message as string | undefined;
   const hasError = !!errorMessage;
 
-  const dynamicStyles = {
+  const dynamicStyles = useMemo(() => ({
     width: selectWidth,
     "& .MuiInputBase-input": {
       padding: "10px",
@@ -41,7 +42,7 @@ const SelectBase: React.FC<SelectBaseProps> = ({
         cursor: "not-allowed",
       },
     }),
-  };
+  }), [selectWidth, disabled]);
 
   return (
     <div className={`${labelRow ? "flex" : ""} items-center gap-2`}>
