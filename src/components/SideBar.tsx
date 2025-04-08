@@ -56,6 +56,7 @@ const Sidebar: React.FC = () => {
           height: "calc(100vh - 60px)",
           position: "absolute",
           borderRight: "0px ",
+          zIndex: 100,
         },
       }}
     >

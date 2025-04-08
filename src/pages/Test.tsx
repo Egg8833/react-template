@@ -12,9 +12,11 @@ import InputBase from '@/components/RHForm/InputBase'
 import SelectBase from '@/components/RHForm/SelectBase'
 import Input from '@/components/Input'
 import BasicModal from '@/components/BasicModal'
+import { LoginPayload } from '@/type/auth'
+import { useLoginMutation } from '@/hooks/useLoginMutation'
 
 const Test = () => {
-
+   const loginMutation = useLoginMutation()
    const methods  = useForm<FormData>({
     mode: 'all', resolver: zodResolver(schema),defaultValues})
     const {  handleSubmit,control } = methods;
@@ -30,13 +32,23 @@ const Test = () => {
 
 
   // 提交表單
-  const onSubmit = (data: FormData) => {
-    console.log('Form Data:', data);
+const onSubmit = (form: FormData) => {
+  console.log('Form Data:', form)
+
+  const loginData: LoginPayload = {
+    UserID: '1030759',      // 可替換成 form.account
+    UserCyph: '!QAZ3edc'    // 可替換成 form.password
   }
+
+  loginMutation.mutate(loginData)
+}
+
+
 
   return (
 
     <div className="">
+
     <FormProvider {...methods}>
     <form  onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
@@ -118,11 +130,13 @@ const Test = () => {
             開啟Modal
           </Button>
       </div>
-      <button
+      <Button
+        loading={loginMutation.isPending}
         type="submit"
+        variant="contained"
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
         提交
-      </button>
+      </Button>
        <Controller
         name="checkName"
         control={control}
@@ -133,6 +147,7 @@ const Test = () => {
           />
         )}
       />
+  {loginMutation.isPending && <p>Loading...</p>}
     </form>
     <DevTool control={methods.control
     } ></DevTool>
