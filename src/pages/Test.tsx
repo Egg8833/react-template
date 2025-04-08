@@ -14,10 +14,16 @@ import Input from '@/components/Input'
 import BasicModal from '@/components/BasicModal'
 import { LoginPayload } from '@/type/auth'
 import { useLoginMutation } from '@/hooks/useLoginMutation'
+import {useUserQuery} from '@/hooks/useUserQuery'
+import { useCounter } from '@/hooks/useCounter'
 
 const Test = () => {
+
    const loginMutation = useLoginMutation()
+   const {count,increment,decrement} =useCounter(0)
+   const {data: userData, isLoading} = useUserQuery(count.toString())
    const methods  = useForm<FormData>({
+
     mode: 'all', resolver: zodResolver(schema),defaultValues})
     const {  handleSubmit,control } = methods;
 
@@ -48,6 +54,8 @@ const onSubmit = (form: FormData) => {
   return (
 
     <div className="">
+      <p>userData: {JSON.stringify(userData)}</p>
+      <p>Loading: {JSON.stringify(isLoading)}</p>
 
     <FormProvider {...methods}>
     <form  onSubmit={handleSubmit(onSubmit)}>
@@ -136,6 +144,18 @@ const onSubmit = (form: FormData) => {
         variant="contained"
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
         提交
+      </Button>
+      <Button
+        onClick={increment}
+        variant="contained"
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        增加
+      </Button>
+       <Button
+        onClick={decrement}
+        variant="contained"
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        減少
       </Button>
        <Controller
         name="checkName"

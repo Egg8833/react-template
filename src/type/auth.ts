@@ -12,3 +12,10 @@ export interface LoginResponse {
   message: string
 
 }
+
+export interface TodoResponse {
+  userId: number
+  id: number
+  title: string
+  completed: boolean
+}
