@@ -11,9 +11,19 @@ export function useCounter(initValue = 0) {
     setCount((count) => count - 1);
   }
 
+  function multiply(factor: number) {
+    setCount((count) => count * factor);
+  }
+
+  function divide(divisor: number) {
+    setCount((count) => (divisor !== 0 ? count / divisor : count));
+  }
+
   return {
     count,
     increment,
-    decrement
-   };
+    decrement,
+    multiply,
+    divide
+  };
 }
