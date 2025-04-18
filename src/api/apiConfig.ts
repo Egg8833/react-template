@@ -8,13 +8,13 @@ import { getItem } from '@/utils/storage'
 
 // ✅ 建立 API 實例
 export const apiClient: AxiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api3`,
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/`,
   timeout: API_TIMEOUT_TIME,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json'
   },
-  validateStatus: () => true
+  validateStatus: () => true // // 讓所有狀態碼都進入 then()，不會進入 catch()
 })
 
 // ✅ Request Interceptor - 自動帶入 Bearer Token

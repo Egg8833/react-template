@@ -11,5 +11,6 @@ export const postUserLogin = async (payload: LoginPayload): Promise<LoginRespons
 
 export const getUserInfo = async (userId: string): Promise<TodoResponse> => {
   const { data } = await apiClient.get(`/todos/${userId}`)
+  console.log('取得使用者資訊', data)
   return data
 }
