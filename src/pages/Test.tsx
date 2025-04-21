@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,useRef } from 'react'
 import {Button} from '@mui/material'
 import {useForm,FormProvider,Controller} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
@@ -16,7 +16,7 @@ import { LoginPayload } from '@/type/auth'
 import { useLoginMutation } from '@/hooks/useLoginMutation'
 import {useUserQuery} from '@/hooks/useUserQuery'
 import { useCounter } from '@/hooks/useCounter'
-
+import { useKeyboardLogger } from '@/hooks/useKeyboardLogger'
 const Test = () => {
 
    const loginMutation = useLoginMutation()
@@ -35,6 +35,8 @@ const Test = () => {
     {value: 'FOK', label: 'FOK'},
     {value: 'IOC', label: 'IOC'},
   ]
+
+  const { keys, clear } = useKeyboardLogger()
 
 
   // 提交表單
@@ -174,6 +176,8 @@ const onSubmit = (form: FormData) => {
     </FormProvider>
     <div className="pl-4">
     <TableMarket/>
+      <button onClick={clear}>清空紀錄</button>
+      <p>目前紀錄：{keys.join(', ')}</p>
     </div>
     <ToggleButtonGroup/>
     </div>
