@@ -1,5 +1,5 @@
 import { apiClient } from "./apiConfig";
-import { LoginPayload, LoginResponse,TodoResponse } from '@/type/auth'
+import type { LoginPayload, LoginResponse,TodoResponse } from '@/type/auth'
 
 
 
