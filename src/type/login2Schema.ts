@@ -8,6 +8,7 @@ export const login2Schema = z.object({
     .string()
     .min(6, { message: "密碼至少需要 6 個字元" })
     .max(20, { message: "密碼不能超過 20 個字元" }),
+  captcha: z.string().min(4, { message: "驗證碼為必填項目" }),
 });
 
 export type Login2FormData = z.infer<typeof login2Schema>;
@@ -17,4 +18,5 @@ export const login2DefaultValues: Login2FormData = {
   brokerCode: "F999000",
   account: "",
   password: "",
+  captcha: "",
 };

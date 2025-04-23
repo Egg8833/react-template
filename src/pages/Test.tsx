@@ -17,6 +17,14 @@ import { useLoginMutation } from '@/hooks/useLoginMutation'
 import {useUserQuery} from '@/hooks/useUserQuery'
 import { useCounter } from '@/hooks/useCounter'
 import { useKeyboardLogger } from '@/hooks/useKeyboardLogger'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
+import MuiAlert, { AlertColor } from '@mui/material/Alert';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CustomSnackbar from '@/components/CustomSnackbar'
+
+
 const Test = () => {
 
    const loginMutation = useLoginMutation()
@@ -36,7 +44,46 @@ const Test = () => {
     {value: 'IOC', label: 'IOC'},
   ]
 
+   const [state, setState] = useState<SnackbarOrigin & { openSnackbar: boolean }>({
+    openSnackbar: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal,  openSnackbar } = state;
+
+    const handleClick = (newState: SnackbarOrigin) => () => {
+    setState({ ...newState, openSnackbar: true });
+  };
+
+  const handleCloseSnackbar = () => {
+    setState({ ...state, openSnackbar: false });
+  };
+
   const { keys, clear } = useKeyboardLogger()
+
+const CustomAlert = (props: any) => {
+  return (
+    <MuiAlert
+      elevation={6}
+      variant="filled"
+      {...props}
+      iconMapping={{
+        success: <CheckCircleIcon fontSize="inherit" />,
+        error: <span>❌</span>,
+        warning: <span>⚠️</span>,
+        info: <span>ℹ️</span>,
+      }}
+      sx={{
+        backgroundColor: '#ffff',
+        color: '#4caf50',
+        minWidth: 300,
+        fontSize: '16px',
+        borderRadius: '10px',
+        alignItems: 'center',
+      }}
+    />
+  );
+};
 
 
   // 提交表單
@@ -180,6 +227,34 @@ const onSubmit = (form: FormData) => {
       <p>目前紀錄：{keys.join(', ')}</p>
     </div>
     <ToggleButtonGroup/>
+    <CheckCircleOutlineIcon sx={{ color: 'green' }}></CheckCircleOutlineIcon>
+    <ErrorOutlineIcon sx={{ color: 'red' }}></ErrorOutlineIcon>
+    <button onClick={handleClick({ vertical: 'top', horizontal: 'center' })}>
+      top-center
+    </button>
+
+    {/* <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={openSnackbar}
+        onClose={handleCloseSnackbar}
+        message="I love snacks"
+        key={vertical + horizontal}
+        autoHideDuration={3000}
+
+      >
+        <CustomAlert onClose={handleCloseSnackbar} severity="info" sx={{ width: '100%' }}>
+          This is a success message!
+        </CustomAlert>
+      </Snackbar> */}
+
+    <CustomSnackbar
+        open={openSnackbar}
+        message="請至信箱收取驗證信"
+        severity="success"
+        onClose={handleCloseSnackbar}
+        autoHideDuration={3000}
+
+        />
     </div>
   )
 }

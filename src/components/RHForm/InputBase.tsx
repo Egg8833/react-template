@@ -14,9 +14,11 @@ interface InputBaseProps {
   type?: "text" | "password" | "number" | "email";
   errorStyleMb?: boolean;
   labelStyle?: React.CSSProperties;
+  placeholder?: string;
 }
 
 const InputBase: React.FC<InputBaseProps> = ({
+  placeholder = '請輸入...',
   inputName,
   inputId,
   inputWidth = "200px",
@@ -28,6 +30,7 @@ const InputBase: React.FC<InputBaseProps> = ({
   type = "text",
   children,
   labelStyle,
+
 }) => {
   const { register, formState: { errors } } = useFormContext();
 
@@ -77,6 +80,7 @@ const InputBase: React.FC<InputBaseProps> = ({
         {...register(inputId)}
         autoComplete="off"
         slotProps={helperTextStyles}
+        placeholder={placeholder}
       />
 
       {children}
