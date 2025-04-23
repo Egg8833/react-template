@@ -5,7 +5,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import SelectBase from '@/components/RHForm/SelectBase'
 import InputBase from '@/components/RHForm/InputBase'
 import CaptchaCanvas from '@/components/CaptchaCanvas'
-
+import ToggleButtonGroup from '@/components/ToggleButtonGroup'
 import {
   login2Schema,
   login2DefaultValues,
@@ -13,6 +13,7 @@ import {
 } from '@/type/login2Schema'
 
 const Login2: React.FC = () => {
+  const [selected, setSelected] = useState<'left' | 'right'>('left')
   const methods = useForm<Login2FormData>({
     mode: 'all',
     resolver: zodResolver(login2Schema),
@@ -54,10 +55,12 @@ const Login2: React.FC = () => {
       <Paper elevation={3} sx={{padding: 8}}>
         <FormProvider {...methods}>
           <form className="w-300px mx-auto" onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h5" align="center" gutterBottom>
+            <Typography variant="h5" align="center" sx={{mb: 3}}>
               登入
             </Typography>
             <div className="flex flex-col gap-4">
+              <ToggleButtonGroup selected={selected} onChange={setSelected} />
+
               <SelectBase
                 selectName="線路期貨商"
                 selectId="lineBroker"

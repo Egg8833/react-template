@@ -76,6 +76,11 @@ const theme = createTheme({
       },
     },
   },
+   typography: {
+    h1: {
+      fontSize: "24px", // 設定 h1 字體大小
+    },
+  }
 });
 
 
