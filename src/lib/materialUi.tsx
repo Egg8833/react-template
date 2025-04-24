@@ -39,7 +39,7 @@ const theme = createTheme({
         {
           props: { variant: "outlined" },
           style: {
-            borderWidth: "3px",
+            borderWidth: "2px",
           },
         },
         {

@@ -1,22 +1,15 @@
-import React, { useState } from 'react'
-import {
-  Button,
-  Typography,
-  Paper,
-  Box,
-  FormControlLabel,
-} from '@mui/material'
+import React, {useState} from 'react'
+
+import {Button, Typography, Paper, Box, FormControlLabel} from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
-import {
-  useForm,
-  FormProvider,
-  SubmitHandler,
-  Controller,
-} from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+
+import {useForm, FormProvider, SubmitHandler} from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod'
 
 import SelectBaseFormHook from '@/components/RHForm/SelectBaseFormHook'
 import InputBaseFormHook from '@/components/RHForm/InputBaseFormHook'
+import SelectBase from '@/components/SelectBase'
+import InputBase from '@/components/InputBase'
 import CaptchaCanvas from '@/components/CaptchaCanvas'
 import ToggleButtonGroup from '@/components/ToggleButtonGroup'
 import CustomSnackbar from '@/components/CustomSnackbar'
@@ -26,25 +19,11 @@ import {
   login2DefaultValues,
   Login2FormData,
 } from '@/type/login2Schema'
-import * as z from 'zod'
-import InputBase from '@/components/InputBase'
-
-// Box schema & type
-const boxSchema = z.object({
-  Account: z.string(),
-  lineCode: z.string(),
-  boothNo: z.string().min(1, '櫃號不能為空'),
-  orderType: z.string().min(1, '請選擇一個選項'),
-  confirmOrder: z.boolean(),
-  checkOrder: z.boolean(),
-})
-type BoxFormData = z.infer<typeof boxSchema>
 
 const Login2: React.FC = () => {
   const [selected, setSelected] = useState<'left' | 'right'>('left')
   const [captchaCode, setCaptchaCode] = useState('')
   const [trigger, setTrigger] = useState(0)
-  const [emailCode, setEmailCode] = useState('sd')
 
   const [snackbarObj, setOpenSnackbar] = useState({
     open: false,
@@ -58,30 +37,12 @@ const Login2: React.FC = () => {
     defaultValues: login2DefaultValues,
   })
 
-  const boxMethods = useForm<BoxFormData>({
-    mode: 'all',
-    resolver: zodResolver(boxSchema),
-    defaultValues: {
-      Account: 'FFFFF',
-      lineCode: 'F999000',
-      boothNo: '',
-      orderType: 'F999000',
-      confirmOrder: true,
-      checkOrder: true,
-    },
-  })
-
-  const handleBoxSubmit = boxMethods.handleSubmit(data => {
-    console.log('Box表單数据:', data)
-    setOpenSnackbar({
-      open: true,
-      message: '提交成功',
-      severity: 'success',
-    })
-  })
+  const {handleSubmit} = methods
 
   const onSubmit: SubmitHandler<Login2FormData> = data => {
     console.log(data)
+
+    // 驗證碼錯誤
     if (data.captcha !== captchaCode) {
       setTrigger(prev => prev + 1)
       methods.setValue('captcha', '')
@@ -91,6 +52,13 @@ const Login2: React.FC = () => {
       })
       return
     }
+
+    // setOpenSnackbar({
+    //     open: true,
+    //     message: '帳號密碼錯誤',
+    //     severity: 'error',
+    //   })
+
     setOpenSnackbar({
       open: true,
       message: '請至信箱收取驗證信',
@@ -98,28 +66,57 @@ const Login2: React.FC = () => {
     })
   }
 
+
+
   const lineOptions = [
-    { value: 'F999000', label: 'F999000' },
-    { value: 'F888000', label: 'F888000' },
+    {value: 'F999000', label: 'F999000'},
+    {value: 'F888000', label: 'F888000'},
   ]
+
+  const [emailCode, setEmailCode] = useState('sd')
 
   const handleSubmit2 = (e: React.FormEvent) => {
     e.preventDefault()
     console.log('輸入的驗證碼是:', emailCode)
+
+    // setOpenSnackbar({
+    //   open: true,
+    //   message: '信箱驗證成功',
+    //   severity: 'success',
+    // })
+
     setOpenSnackbar({
       open: true,
       message: '驗證碼錯誤',
       severity: 'error',
     })
+    // 你可以在這裡執行 API 請求或驗證邏輯
   }
+  const [checked, setChecked] = React.useState(true)
+
+  const handleChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    checked: boolean
+  ) => {
+    console.log('check', checked)
+    setChecked(checked)
+  }
+
+  const [value, setValue] = useState("");
+
+  const handleChange2 = (e: React.ChangeEvent<{ value: unknown }>) => {
+    setValue(e.target.value as string);
+  };
+
+
 
   return (
     <>
-      <Box sx={{ width:'100%', maxWidth: '600px', margin: 'auto', marginTop: '50px' }}>
-        <Paper elevation={3} sx={{ padding: 8 }}>
+      <Box sx={{width: '600px', margin: 'auto', marginTop: '50px'}}>
+        <Paper elevation={3} sx={{padding: 8}}>
           <FormProvider {...methods}>
-            <form className="w-300px mx-auto" onSubmit={methods.handleSubmit(onSubmit)}>
-              <Typography variant="h5" align="center" sx={{ mb: 3 }}>
+            <form className="w-300px mx-auto" onSubmit={handleSubmit(onSubmit)}>
+              <Typography variant="h5" align="center" sx={{mb: 3}}>
                 登入
               </Typography>
               <div className="flex flex-col gap-4">
@@ -133,6 +130,15 @@ const Login2: React.FC = () => {
                   selectWidth="300px"
                   labelRow={false}
                 />
+                {/* <SelectBase
+                  showLabel={false}
+                  selectName="期貨商代號"
+                  selectId="brokerCode"
+                  options={brokerOptions}
+                  labelWidth="100px"
+                  selectWidth="300px"
+                  labelRow={false}
+                /> */}
                 <InputBaseFormHook
                   showLabel={false}
                   placeholder="帳號"
@@ -152,6 +158,7 @@ const Login2: React.FC = () => {
                   labelRow={false}
                   type="password"
                 />
+
                 <InputBaseFormHook
                   showLabel={false}
                   placeholder="驗證碼"
@@ -172,13 +179,14 @@ const Login2: React.FC = () => {
                     </span>
                   </div>
                 </InputBaseFormHook>
+
                 <p>驗證碼：{captchaCode}</p>
               </div>
               <Button
                 type="submit"
                 variant="contained"
                 fullWidth
-                sx={{ width: '300px', mt: 1 }}>
+                sx={{width: '300px', mt: 1}}>
                 登入
               </Button>
               <p className="text-red-500 text-center">
@@ -188,10 +196,9 @@ const Login2: React.FC = () => {
           </FormProvider>
         </Paper>
       </Box>
-
-      <Box sx={{ width:'100%', maxWidth: '600px', margin: 'auto', marginTop: '50px' }}>
-        <Paper elevation={3} sx={{ padding: 6 }}>
-          <Typography variant="h5" align="center" sx={{ mb: 3 }}>
+      <Box sx={{width: '600px', margin: 'auto', marginTop: '50px'}}>
+        <Paper elevation={3} sx={{padding: 6}}>
+          <Typography variant="h5" align="center" sx={{mb: 3}}>
             信箱驗證
           </Typography>
           <form onSubmit={handleSubmit2}>
@@ -199,6 +206,7 @@ const Login2: React.FC = () => {
               <p className="mt-0 mb-4 text-[14px] text-red-500">
                 已寄送驗證信至 ***252@gmail.com
               </p>
+
               <InputBase
                 showLabel={false}
                 placeholder="請輸入驗證碼"
@@ -206,10 +214,14 @@ const Login2: React.FC = () => {
                 inputId="emailCode"
                 inputWidth="300px"
                 value={emailCode}
-                onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmailCode(e.target.value)}
+                // error={!!emailCode}
+                // helperText=''
+                onChange={e => setEmailCode(e.target.value)}
                 labelRow={false}
               />
+
               <Button
+                // disabled={!emailCode}
                 type="submit"
                 variant="contained"
                 fullWidth
@@ -232,80 +244,80 @@ const Login2: React.FC = () => {
           </form>
         </Paper>
       </Box>
-
-      <Box id="box" sx={{ width:'100%', maxWidth: '1200px', margin: 'auto', marginTop: '50px' }}>
+      <Box sx={{width: '1200px', margin: 'auto', marginTop: '50px'}}>
         <Paper elevation={3}>
           <div className="bg-[#f5f5f5] h-[40px] text-center text-blue">
             <h4 className="text-[16px] font-bold text-center pt-2">身分確認</h4>
           </div>
-          <FormProvider {...boxMethods}>
-            <form onSubmit={handleBoxSubmit}>
-              <div className="p-4">
-                <h5 className="mb-3 text-[16px] font-bold text-blue">連線帳號</h5>
-                <div className="flex gap-1">
-                  <InputBaseFormHook
-                    inputName="結算會員"
-                    inputId="Account"
-                    inputWidth="120px"
-                    labelRow={false}
-                    disabled
-                  />
-                  <InputBaseFormHook
-                    inputName="線路期貨商"
-                    inputId="lineCode"
-                    inputWidth="150px"
-                    labelRow={false}
-                    disabled
-                  />
-                  <InputBaseFormHook
-                    inputName="櫃號"
-                    inputId="boothNo"
-                    inputWidth="70px"
-                    labelRow={false}
-                  />
-                  <SelectBaseFormHook
-                    labelRow={false}
-                    selectName="選項"
-                    selectId="orderType"
-                    options={lineOptions}
-                  />
-                </div>
-                <h5 className=" mb-0 mt-4 text-[16px] font-bold text-blue">
-                  交易提示功能
-                </h5>
-                <div className="flex flex-col">
-                  <Controller
-                    name="confirmOrder"
-                    control={boxMethods.control}
-                    render={({ field }) => (
-                      <FormControlLabel
-                        control={<Checkbox checked={field.value} onChange={field.onChange} />}
-                        label="下單時再次確認委託單"
-                      />
-                    )}
-                  />
-                  <Controller
-                    name="checkOrder"
-                    control={boxMethods.control}
-                    render={({ field }) => (
-                      <FormControlLabel
-                        control={<Checkbox checked={field.value} onChange={field.onChange} />}
-                        label="刪單減量-檢查委託單"
-                      />
-                    )}
-                  />
-                </div>
-              </div>
-              <div className="flex justify-center pb-2">
-                <Button variant="outlined" sx={{ width: '120px' }} onClick={() => boxMethods.reset()}>
-                  取消
-                </Button>
-                <Button type="submit" variant="contained" sx={{ marginLeft: '10px', width: '120px' }}>
-                  確認
-                </Button>
-              </div>
-            </form>
-          </FormProvider>
+          <div className="p-4">
+            <h5 className="text-[16px] font-bold text-blue">連線帳號</h5>
+            <div className="flex gap-1">
+              <InputBase
+                inputName="結算會員"
+                inputId="Account"
+                inputWidth="120px"
+                value={emailCode}
+                onChange={e => setEmailCode(e.target.value)}
+                labelRow={false}
+                disabled
+              />
+              <InputBase
+                inputName="線路期貨商"
+                inputId="lineCode"
+                inputWidth="150px"
+                value={emailCode}
+                onChange={e => setEmailCode(e.target.value)}
+                labelRow={false}
+                disabled
+              />
+              <InputBase
+                inputName="櫃號"
+                inputId="boothNo"
+                inputWidth="70px"
+                value={emailCode}
+                onChange={e => setEmailCode(e.target.value)}
+                labelRow={false}
+              />
+
+              <SelectBase
+                labelRow={false}
+                selectName="選項"
+                selectId="orderType"
+                options={lineOptions}
+                value={value}
+                onChange={handleChange2}
+                // error={true}
+                // helperText={value}
+              />
+            </div>
+            <h5 className="m-0 text-[16px] font-bold text-blue">
+              交易提示功能
+            </h5>
+            <div className="flex flex-col">
+              <FormControlLabel
+                control={<Checkbox />}
+                checked={checked}
+                onChange={handleChange}
+                label="下單時再次確認委託單"
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                checked={checked}
+                onChange={handleChange}
+                label="刪單減量-檢查委託單"
+              />
+            </div>
+          </div>
+          <div className="flex justify-center pb-2">
+            <Button variant="outlined" sx={{width: '120px'}}>
+              取消
+            </Button>
+            <Button
+              variant="contained"
+              sx={{marginLeft: '10px', width: '120px'}}>
+              確認
+            </Button>
+          </div>
         </Paper>
       </Box>
 
@@ -313,7 +325,7 @@ const Login2: React.FC = () => {
         open={snackbarObj.open}
         message={snackbarObj.message}
         severity={snackbarObj.severity}
-        onClose={() => setOpenSnackbar({ ...snackbarObj, open: false })}
+        onClose={() => setOpenSnackbar({...snackbarObj, open: false})}
         autoHideDuration={3000}
       />
     </>
