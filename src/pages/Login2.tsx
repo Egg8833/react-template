@@ -1,44 +1,27 @@
 import React, { useState } from 'react'
-import {
-  Button,
-  Typography,
-  Paper,
-  Box,
-  FormControlLabel,
-} from '@mui/material'
-import Checkbox from '@mui/material/Checkbox'
-import {
-  useForm,
-  FormProvider,
-  SubmitHandler,
-  Controller,
-} from 'react-hook-form'
+import { Button, Typography, Paper, Box } from '@mui/material'
+
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import SelectBaseFormHook from '@/components/RHForm/SelectBaseFormHook'
 import InputBaseFormHook from '@/components/RHForm/InputBaseFormHook'
+import CheckboxBaseFormHook from '@/components/RHForm/checkBoxBaseFormHook'
 import CaptchaCanvas from '@/components/CaptchaCanvas'
 import ToggleButtonGroup from '@/components/ToggleButtonGroup'
 import CustomSnackbar from '@/components/CustomSnackbar'
-
-import {
-  login2Schema,
-  login2DefaultValues,
-  Login2FormData,
-} from '@/type/login2Schema'
-import * as z from 'zod'
 import InputBase from '@/components/InputBase'
 
-// Box schema & type
-const boxSchema = z.object({
-  Account: z.string(),
-  lineCode: z.string(),
-  boothNo: z.string().min(1, '櫃號不能為空'),
-  orderType: z.string().min(1, '請選擇一個選項'),
-  confirmOrder: z.boolean(),
-  checkOrder: z.boolean(),
-})
-type BoxFormData = z.infer<typeof boxSchema>
+import {
+  loginSchema,
+  loginDefaultValues,
+  LoginFormData,
+} from '@/type/Login/loginSchema'
+import {
+  identityConfirmationSchema,
+  IdentityConfirmationFormData,
+  identityConfirmationDefaultValues
+} from '@/type/Login/IdentityConfirmation'
 
 const Login2: React.FC = () => {
   const [selected, setSelected] = useState<'left' | 'right'>('left')
@@ -52,27 +35,21 @@ const Login2: React.FC = () => {
     severity: '' as 'success' | 'error',
   })
 
-  const methods = useForm<Login2FormData>({
+  const methods = useForm<LoginFormData>({
     mode: 'all',
-    resolver: zodResolver(login2Schema),
-    defaultValues: login2DefaultValues,
+    resolver: zodResolver(loginSchema),
+    defaultValues: loginDefaultValues,
   })
 
-  const boxMethods = useForm<BoxFormData>({
+  const connectMethods = useForm<IdentityConfirmationFormData>({
     mode: 'all',
-    resolver: zodResolver(boxSchema),
-    defaultValues: {
-      Account: 'FFFFF',
-      lineCode: 'F999000',
-      boothNo: '',
-      orderType: 'F999000',
-      confirmOrder: true,
-      checkOrder: true,
-    },
+    resolver: zodResolver(identityConfirmationSchema),
+    defaultValues: identityConfirmationDefaultValues,
   })
 
-  const handleBoxSubmit = boxMethods.handleSubmit(data => {
-    console.log('Box表單数据:', data)
+  const handleConnectSubmit = connectMethods.handleSubmit(data => {
+    console.log('connectMethods:', data)
+
     setOpenSnackbar({
       open: true,
       message: '提交成功',
@@ -80,8 +57,9 @@ const Login2: React.FC = () => {
     })
   })
 
-  const onSubmit: SubmitHandler<Login2FormData> = data => {
+  const onSubmit: SubmitHandler<LoginFormData> = data => {
     console.log(data)
+
     if (data.captcha !== captchaCode) {
       setTrigger(prev => prev + 1)
       methods.setValue('captcha', '')
@@ -115,10 +93,18 @@ const Login2: React.FC = () => {
 
   return (
     <>
-      <Box sx={{ width:'100%', maxWidth: '600px', margin: 'auto', marginTop: '50px' }}>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: '600px',
+          margin: 'auto',
+          marginTop: '50px',
+        }}>
         <Paper elevation={3} sx={{ padding: 8 }}>
           <FormProvider {...methods}>
-            <form className="w-300px mx-auto" onSubmit={methods.handleSubmit(onSubmit)}>
+            <form
+              className="w-300px mx-auto"
+              onSubmit={methods.handleSubmit(onSubmit)}>
               <Typography variant="h5" align="center" sx={{ mb: 3 }}>
                 登入
               </Typography>
@@ -189,7 +175,13 @@ const Login2: React.FC = () => {
         </Paper>
       </Box>
 
-      <Box sx={{ width:'100%', maxWidth: '600px', margin: 'auto', marginTop: '50px' }}>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: '600px',
+          margin: 'auto',
+          marginTop: '50px',
+        }}>
         <Paper elevation={3} sx={{ padding: 6 }}>
           <Typography variant="h5" align="center" sx={{ mb: 3 }}>
             信箱驗證
@@ -206,7 +198,9 @@ const Login2: React.FC = () => {
                 inputId="emailCode"
                 inputWidth="300px"
                 value={emailCode}
-                onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmailCode(e.target.value)}
+                onChange={(e: {
+                  target: { value: React.SetStateAction<string> }
+                }) => setEmailCode(e.target.value)}
                 labelRow={false}
               />
               <Button
@@ -233,15 +227,24 @@ const Login2: React.FC = () => {
         </Paper>
       </Box>
 
-      <Box id="box" sx={{ width:'100%', maxWidth: '1200px', margin: 'auto', marginTop: '50px' }}>
+      <Box
+        id="box"
+        sx={{
+          width: '100%',
+          maxWidth: '1200px',
+          margin: 'auto',
+          marginTop: '50px',
+        }}>
         <Paper elevation={3}>
           <div className="bg-[#f5f5f5] h-[40px] text-center text-blue">
             <h4 className="text-[16px] font-bold text-center pt-2">身分確認</h4>
           </div>
-          <FormProvider {...boxMethods}>
-            <form onSubmit={handleBoxSubmit}>
+          <FormProvider {...connectMethods}>
+            <form onSubmit={handleConnectSubmit}>
               <div className="p-4">
-                <h5 className="mb-3 text-[16px] font-bold text-blue">連線帳號</h5>
+                <h5 className="mb-3 text-[16px] font-bold text-blue">
+                  連線帳號
+                </h5>
                 <div className="flex gap-1">
                   <InputBaseFormHook
                     inputName="結算會員"
@@ -273,34 +276,28 @@ const Login2: React.FC = () => {
                 <h5 className=" mb-0 mt-4 text-[16px] font-bold text-blue">
                   交易提示功能
                 </h5>
-                <div className="flex flex-col">
-                  <Controller
+                <div className="inline-flex flex-col">
+                  <CheckboxBaseFormHook
                     name="confirmOrder"
-                    control={boxMethods.control}
-                    render={({ field }) => (
-                      <FormControlLabel
-                        control={<Checkbox checked={field.value} onChange={field.onChange} />}
-                        label="下單時再次確認委託單"
-                      />
-                    )}
+                    label="下單時再次確認委託單"
                   />
-                  <Controller
+                  <CheckboxBaseFormHook
                     name="checkOrder"
-                    control={boxMethods.control}
-                    render={({ field }) => (
-                      <FormControlLabel
-                        control={<Checkbox checked={field.value} onChange={field.onChange} />}
-                        label="刪單減量-檢查委託單"
-                      />
-                    )}
+                    label="刪單減量-檢查委託單"
                   />
                 </div>
               </div>
               <div className="flex justify-center pb-2">
-                <Button variant="outlined" sx={{ width: '120px' }} onClick={() => boxMethods.reset()}>
+                <Button
+                  variant="outlined"
+                  sx={{ width: '120px' }}
+                  onClick={() => connectMethods.reset()}>
                   取消
                 </Button>
-                <Button type="submit" variant="contained" sx={{ marginLeft: '10px', width: '120px' }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ marginLeft: '10px', width: '120px' }}>
                   確認
                 </Button>
               </div>
