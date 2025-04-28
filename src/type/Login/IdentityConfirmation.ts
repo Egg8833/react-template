@@ -7,6 +7,7 @@ export const identityConfirmationSchema = z.object({
   orderType: z.string().min(1, '請選擇一個選項'),
   confirmOrder: z.boolean(),
   checkOrder: z.boolean(),
+  autoNum: z.boolean(),
 })
 
 export type IdentityConfirmationFormData = z.infer<typeof identityConfirmationSchema>
@@ -18,4 +19,5 @@ export const identityConfirmationDefaultValues: IdentityConfirmationFormData = {
   orderType: 'F999000',
   confirmOrder: true,
   checkOrder: true,
+  autoNum: true,
 }

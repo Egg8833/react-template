@@ -35,26 +35,15 @@ const Login2: React.FC = () => {
     severity: '' as 'success' | 'error',
   })
 
+  const lineOptions = [
+    { value: 'F999000', label: 'F999000' },
+    { value: 'F888000', label: 'F888000' },
+  ]
+
   const methods = useForm<LoginFormData>({
     mode: 'all',
     resolver: zodResolver(loginSchema),
     defaultValues: loginDefaultValues,
-  })
-
-  const connectMethods = useForm<IdentityConfirmationFormData>({
-    mode: 'all',
-    resolver: zodResolver(identityConfirmationSchema),
-    defaultValues: identityConfirmationDefaultValues,
-  })
-
-  const handleConnectSubmit = connectMethods.handleSubmit(data => {
-    console.log('connectMethods:', data)
-
-    setOpenSnackbar({
-      open: true,
-      message: '提交成功',
-      severity: 'success',
-    })
   })
 
   const onSubmit: SubmitHandler<LoginFormData> = data => {
@@ -76,10 +65,31 @@ const Login2: React.FC = () => {
     })
   }
 
-  const lineOptions = [
-    { value: 'F999000', label: 'F999000' },
-    { value: 'F888000', label: 'F888000' },
-  ]
+  const connectMethods = useForm<IdentityConfirmationFormData>({
+    mode: 'all',
+    resolver: zodResolver(identityConfirmationSchema),
+    defaultValues: identityConfirmationDefaultValues,
+  })
+
+  const handleConnectSubmit = connectMethods.handleSubmit(data => {
+    console.log('connectMethods:', data)
+
+    // setOpenSnackbar({
+    //   open: true,
+    //   message: '連線成功',
+    //   severity: 'success',
+    // })
+
+    setOpenSnackbar({
+      open: true,
+      message: '身分錯誤，連線失敗',
+      severity: 'error',
+    })
+  })
+
+
+
+
 
   const handleSubmit2 = (e: React.FormEvent) => {
     e.preventDefault()
@@ -272,6 +282,13 @@ const Login2: React.FC = () => {
                     selectId="orderType"
                     options={lineOptions}
                   />
+                  <div >
+                  <span className="block h-[24px]"></span>
+                   <CheckboxBaseFormHook
+                    name="autoNum"
+                    label="自動編號"
+                    />
+                    </div>
                 </div>
                 <h5 className=" mb-0 mt-4 text-[16px] font-bold text-blue">
                   交易提示功能
