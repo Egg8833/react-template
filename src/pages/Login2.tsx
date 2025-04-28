@@ -24,7 +24,7 @@ import {
 } from '@/type/Login/IdentityConfirmation'
 
 const Login2: React.FC = () => {
-  const [selected, setSelected] = useState<'left' | 'right'>('left')
+  const [selectedValue, setSelectedValue] = useState('day')
   const [captchaCode, setCaptchaCode] = useState('')
   const [trigger, setTrigger] = useState(0)
   const [emailCode, setEmailCode] = useState('sd')
@@ -119,7 +119,14 @@ const Login2: React.FC = () => {
                 登入
               </Typography>
               <div className="flex flex-col gap-4">
-                <ToggleButtonGroup selected={selected} onChange={setSelected} />
+                <ToggleButtonGroup
+                  options={[
+                    { label: "日盤", value: "day" },
+                    { label: "夜盤", value: "night" },
+                  ]}
+                  selected={selectedValue}
+                  onChange={(newValue) => setSelectedValue(newValue)}
+                />
                 <SelectBaseFormHook
                   showLabel={false}
                   selectName="線路期貨商"
@@ -283,12 +290,12 @@ const Login2: React.FC = () => {
                     options={lineOptions}
                   />
                   <div >
-                  <span className="block h-[24px]"></span>
-                   <CheckboxBaseFormHook
-                    name="autoNum"
-                    label="自動編號"
+                    <span className="block h-[24px]"></span>
+                    <CheckboxBaseFormHook
+                      name="autoNum"
+                      label="自動編號"
                     />
-                    </div>
+                  </div>
                 </div>
                 <h5 className=" mb-0 mt-4 text-[16px] font-bold text-blue">
                   交易提示功能

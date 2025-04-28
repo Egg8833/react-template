@@ -19,10 +19,10 @@ const grey = {
 interface CustomNumberInputProps {
   min?: number;
   max?: number;
-  value: number;
-  inputWidth?: string;
-  onChange: (value: number) => void;
   disabled?: boolean; 
+  inputWidth?: string;
+  value: number;
+  onChange: (value: number) => void;
 }
 
 const NumberInput = React.forwardRef<HTMLDivElement, CustomNumberInputProps>(function CustomNumberInput(
