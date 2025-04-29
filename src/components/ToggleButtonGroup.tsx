@@ -57,6 +57,7 @@ export default function ToggleButtonGroup({ options, selected, onChange }: Toggl
             sx={{
               width: "150px",
               color: '#000',
+             textTransform: "capitalize",
               borderRight: index !== options.length - 1 ? "1px solid #ccc !important" : "none",
               bgcolor: selectedBgColor,
               "&:hover": {
