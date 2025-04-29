@@ -85,7 +85,11 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = ({
         backgroundColor: 'rgba(255, 87, 51, 0.12)',
       },
       '& .MuiDataGrid-selectedRowCount': { display: 'none' },
-      ...customStyles,
+      '& .MuiDataGrid-columnSeparator--sideRight': { //設定欄寬移動的線
+        color:'#487CB4', // 將顏色與表格背景融合
+        right: '-4px',
+      },
+            ...customStyles,
     },
   }
 

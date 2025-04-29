@@ -4,8 +4,7 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import InputBaseFormHook from '@/components/RHForm/InputBaseFormHook'
 import CheckboxBaseFormHook from '@/components/RHForm/checkBoxBaseFormHook'
-import NumberInput from '@/components/NumberInput'
-import NumberInputExample from '@/pages/NumberInputExample'
+import NumberInput from '@/components/RHForm/InputNumberFormHook'
 import {
   userSettingSchema,
   userSettingDefaultValues,
@@ -26,7 +25,7 @@ const UserSetting = () => {
   }
 
 
-  const [quantity, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(18);
 
 
 
@@ -141,23 +140,22 @@ const UserSetting = () => {
                       label="啟用期貨商自訂編號最高位數字"
                     />
                     <NumberInput
-                      value={quantity}
-                      onChange={setQuantity}
-                      min={0}
+                      name='quantity'
+                      min={1}
                       max={100}
                       inputWidth='80px'
-                      
+
                     />
                   </div>
                 </div>
-                {/* <Button
+                <Button
                   type="submit"
                   variant="contained"
                   color="primary"
-                  sx={{ width: '120px' }}
+                  sx={{ width: '120px', height: '40px' }}
                   >
-                  修改密碼
-                </Button> */}
+                  儲存
+                </Button>
               </div>
 
 
