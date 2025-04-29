@@ -27,6 +27,8 @@ const menuItems = [
       { text: "Login2", path: "login2" }, // 新增 Login2 選單項目
       { text: "nextedTable", path: "nextedTable" }, // 新增 nextedTable 選單項目
       { text: "userSetting", path: "userSetting" }, // 新增 nextedTable 選單項目
+      { text: "delegation", path: "delegation" }, // 新增 nextedTable 選單項目
+      { text: "autoOrder", path: "autoOrder" }, // 新增 nextedTable 選單項目
     ],
   },
 ];
