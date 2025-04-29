@@ -35,8 +35,6 @@ const InputBase: React.FC<InputBaseProps> = ({
   type = "text",
   children,
   labelStyle,
-
-  // 控制輸入的属性
   value,
   onChange,
   error = false,

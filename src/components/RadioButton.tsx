@@ -7,6 +7,7 @@ interface RadioButtonWithLabelProps {
   selectedValue: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   labelShow?: boolean;
+  disabled?: boolean;
 }
 
 const RadioButtonWithLabel: React.FC<RadioButtonWithLabelProps> = ({
@@ -15,6 +16,7 @@ const RadioButtonWithLabel: React.FC<RadioButtonWithLabelProps> = ({
   selectedValue,
   onChange,
   labelShow = true,
+  disabled = false,
 }) => {
   return (
     <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
@@ -23,8 +25,9 @@ const RadioButtonWithLabel: React.FC<RadioButtonWithLabelProps> = ({
         onChange={onChange}
         value={value}
         name="custom-radio"
+        disabled={disabled}
       />
-      <span className={labelShow ? '' : 'hidden'}>{label}</span>
+      <span className={`${labelShow ? '' : 'hidden'} ${disabled ? 'text-gray-500' : ''}`}>{label}</span>
     </label>
   );
 };
