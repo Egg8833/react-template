@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import SelectBase from '@/components/SelectBase'
 import InputBase from '@/components/InputBase'
 import CheckBoxBaseFormHook from '@/components/RHForm/checkBoxBaseFormHook'
-
 import { GridColDef } from '@mui/x-data-grid'
 import { CustomDataTable } from '@/components/CustomDataTable'
 
@@ -66,6 +65,7 @@ const rows = [
     product: 'BRFB4/F4',
   },
 ]
+
 
 
 const AutoOrder = () => {
@@ -195,9 +195,15 @@ const AutoOrder = () => {
               customStyles={{
                 '& .buy-row': {
                   backgroundColor: '#ffe5e5',
+                  '&:hover': {
+                    backgroundColor: '#fff5f5',  
+                  },
                 },
                 '& .sell-row': {
                   backgroundColor: '#eaffea',
+                  '&:hover': {
+                    backgroundColor: '#f5fff5', 
+                  },
                 },
               }}
             />

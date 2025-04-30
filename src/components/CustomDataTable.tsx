@@ -8,6 +8,7 @@ import {
   useGridApiRef,
 } from '@mui/x-data-grid'
 import { Button } from '@mui/material'
+import { SxProps, Theme } from '@mui/material/styles';
 
 interface CustomDataTableProps {
   rows: GridRowsProp
@@ -16,7 +17,7 @@ interface CustomDataTableProps {
   pageSizeOptions?: number[]
   autoHeight?: boolean
   getRowClassName?: (params: unknown) => string;
-  customStyles?: Record<string, React.CSSProperties>
+  customStyles?: SxProps<Theme>;
   UseExportCSV?: boolean
 }
 
@@ -64,6 +65,8 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = ({
         labelRowsPerPage: '每頁筆數',
       },
     },
+    checkboxSelection: false,
+    disableRowSelectionOnClick: true,
     sx: {
       '& .MuiDataGrid-columnHeader': { //表頭樣式
         borderBottom: '2px solid rgba(224, 224, 224, 1)',
@@ -82,7 +85,7 @@ export const CustomDataTable: React.FC<CustomDataTableProps> = ({
         borderRight: 'none', // 移除最後一個有內容的 cell 右側邊框
       },
       '& .MuiDataGrid-row:hover': {
-        backgroundColor: 'rgba(255, 87, 51, 0.12)',
+        backgroundColor: 'rgba(228, 239, 246, 0.3)',
       },
       '& .MuiDataGrid-selectedRowCount': { display: 'none' },
       '& .MuiDataGrid-columnSeparator--sideRight': { //設定欄寬移動的線
