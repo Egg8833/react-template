@@ -1,7 +1,7 @@
 import { Box, Paper, Button } from '@mui/material'
 import React, { useState } from 'react'
-import SelectBase from '@/components/SelectBase'
-import InputBase from '@/components/InputBase'
+import SelectBase from '@/components/RHForm/SelectBaseFormHook'
+import InputBase from '@/components/RHForm/InputBaseFormHook'
 import CheckBoxBaseFormHook from '@/components/RHForm/checkBoxBaseFormHook'
 import { GridColDef } from '@mui/x-data-grid'
 import { CustomDataTable } from '@/components/CustomDataTable'
@@ -99,6 +99,7 @@ const AutoOrder = () => {
                   value={formState.account}
                   onChange={(e) => setFormState({ ...formState, account: e.target.value })}
                   labelRow={false}
+                  useRHF={false}
                 />
                 <SelectBase
                   selectName='身分碼'
@@ -110,6 +111,7 @@ const AutoOrder = () => {
                     { value: "3:外國自然人", label: "外國自然人" },
                   ]}
                   value={formState.traderType}
+                  useRHF={false}
                   onChange={(e: React.ChangeEvent<{ value: unknown }>) => setFormState({ ...formState, traderType: e.target.value as string })}
                   labelRow={false}
 
@@ -196,13 +198,13 @@ const AutoOrder = () => {
                 '& .buy-row': {
                   backgroundColor: '#ffe5e5',
                   '&:hover': {
-                    backgroundColor: '#fff5f5',  
+                    backgroundColor: '#fff5f5',
                   },
                 },
                 '& .sell-row': {
                   backgroundColor: '#eaffea',
                   '&:hover': {
-                    backgroundColor: '#f5fff5', 
+                    backgroundColor: '#f5fff5',
                   },
                 },
               }}

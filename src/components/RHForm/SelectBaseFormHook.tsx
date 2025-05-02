@@ -11,6 +11,9 @@ interface SelectBaseProps {
   showLabel?: boolean;
   labelRow?: boolean;
   labelWidth?: string;
+  useRHF?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<{ value: unknown }>) => void;
 }
 
 const SelectBase: React.FC<SelectBaseProps> = ({
@@ -22,55 +25,81 @@ const SelectBase: React.FC<SelectBaseProps> = ({
   showLabel = true,
   labelRow = true,
   labelWidth,
+  useRHF = true,
+  value,
+  onChange,
 }) => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
 
-  // 取得對應欄位的錯誤資訊
-  const errorMessage = errors[selectId]?.message as string | undefined;
+  const formContext = useFormContext();
+  const control = formContext?.control;
+  const errors = formContext?.formState.errors;
+
+  const errorMessage = useRHF ? (errors[selectId]?.message as string | undefined) : undefined;
   const hasError = !!errorMessage;
 
-  const dynamicStyles = useMemo(() => ({
-    width: selectWidth,
-    "& .MuiInputBase-input": {
-      padding: "10px",
-    },
-    ...(disabled && {
-      "& .MuiInputBase-input.Mui-disabled": {
-        cursor: "not-allowed",
+  const dynamicStyles = useMemo(
+    () => ({
+      width: selectWidth,
+      "& .MuiInputBase-input": {
+        padding: "10px",
       },
+      ...(disabled && {
+        "& .MuiInputBase-input.Mui-disabled": {
+          cursor: "not-allowed",
+        },
+      }),
     }),
-  }), [selectWidth, disabled]);
+    [selectWidth, disabled]
+  );
+
+  const baseClass = `${labelRow ? "flex" : ""} items-center gap-2`;
 
   return (
-    <div className={`${labelRow ? "flex" : ""} items-center gap-2`}>
+    <div className={baseClass}>
       {showLabel && (
         <label style={{ width: labelWidth, display: "block" }} htmlFor={selectId}>
           {selectName}
         </label>
       )}
-      <Controller
-        name={selectId}
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            id={selectId}
-            error={hasError}
-            displayEmpty
-            disabled={disabled}
-            sx={dynamicStyles}
-          >
-            {options.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        )}
-      />
+
+      {useRHF ? (
+        <Controller
+          name={selectId}
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              id={selectId}
+              error={hasError}
+              displayEmpty
+              disabled={disabled}
+              sx={dynamicStyles}
+            >
+              {options.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          )}
+        />
+      ) : (
+        <Select
+          id={selectId}
+          value={value}
+          onChange={(event) => onChange?.(event as React.ChangeEvent<{ value: unknown }>)}
+          disabled={disabled}
+          displayEmpty
+          sx={dynamicStyles}
+        >
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+      )}
+
       {hasError && <p className="text-red-500 text-xs">{errorMessage}</p>}
     </div>
   );
