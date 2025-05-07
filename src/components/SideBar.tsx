@@ -120,7 +120,7 @@ const Sidebar: React.FC = () => {
           width: 250,
           top: "60px",
           backgroundColor: "#f5f5f5",
-          height: "calc(100vh - 60px)",
+          height: "auto",
           position: "absolute",
           borderRight: "0px ",
           zIndex: 100,
