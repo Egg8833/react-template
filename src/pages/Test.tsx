@@ -8,9 +8,9 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TableMarket from '@/components/TableMarket'
 import ToggleButtonGroup from '@/components/ToggleButtonGroup'
-import InputBase from '@/components/RHForm/InputBase'
-import SelectBase from '@/components/RHForm/SelectBase'
-import Input from '@/components/Input'
+import InputBase from '@/components/RHForm/InputBaseFormHook'
+import SelectBase from '@/components/RHForm/SelectBaseFormHook'
+import Input from '@/components/InputhookForm'
 import BasicModal from '@/components/BasicModal'
 import { LoginPayload } from '@/type/auth'
 import { useLoginMutation } from '@/hooks/useLoginMutation'
@@ -23,9 +23,38 @@ import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 import MuiAlert, { AlertColor } from '@mui/material/Alert';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CustomSnackbar from '@/components/CustomSnackbar'
+import DraggableTable from "@/components/DraggableTable";
+
+
+interface RowData {
+  id: string;
+  type: string;
+  name: string;
+}
+
+const initialData: RowData[] = [
+  { id: "1", type: "日盤選擇權", name: "台指選擇權(TXO)" },
+  { id: "2", type: "日盤選擇權", name: "電子選擇權(TEO)" },
+  { id: "3", type: "日盤選擇權", name: "金融選擇權(TFO)" },
+  { id: "4", type: "日盤選擇權", name: "黃金選擇權(TGO)" },
+  { id: "5", type: "日盤選擇權", name: "股票選擇權" },
+];
 
 
 const Test = () => {
+
+   const [rows, setRows] = useState(initialData);
+
+  const handleDelete = (id: string) => {
+    setRows((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const columns = [
+    { label: "刪除", key: "delete" },
+    { label: "盤別", key: "type" },
+    { label: "商品", key: "name" },
+    { label: "排序", key: "sort" },
+  ];
 
    const loginMutation = useLoginMutation()
    const {count,increment,decrement} =useCounter(0)
@@ -50,6 +79,7 @@ const Test = () => {
     horizontal: 'center',
   });
   const { vertical, horizontal,  openSnackbar } = state;
+  const [selected, setSelected] = useState("left");
 
     const handleClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, openSnackbar: true });
@@ -61,29 +91,9 @@ const Test = () => {
 
   const { keys, clear } = useKeyboardLogger()
 
-const CustomAlert = (props: any) => {
-  return (
-    <MuiAlert
-      elevation={6}
-      variant="filled"
-      {...props}
-      iconMapping={{
-        success: <CheckCircleIcon fontSize="inherit" />,
-        error: <span>❌</span>,
-        warning: <span>⚠️</span>,
-        info: <span>ℹ️</span>,
-      }}
-      sx={{
-        backgroundColor: '#ffff',
-        color: '#4caf50',
-        minWidth: 300,
-        fontSize: '16px',
-        borderRadius: '10px',
-        alignItems: 'center',
-      }}
-    />
-  );
-};
+
+
+
 
 
   // 提交表單
@@ -102,9 +112,19 @@ const onSubmit = (form: FormData) => {
 
   return (
 
-    <div className="">
+    <>
       <p>userData: {JSON.stringify(userData)}</p>
       <p>Loading: {JSON.stringify(isLoading)}</p>
+
+
+      <DraggableTable
+        columns={columns}
+        data={rows}
+        getId={(item) => item.id}
+        onDragEnd={setRows}
+        onDelete={handleDelete}
+      />
+
 
     <FormProvider {...methods}>
     <form  onSubmit={handleSubmit(onSubmit)}>
@@ -168,7 +188,7 @@ const onSubmit = (form: FormData) => {
           labelRow={false}
           options={orderOptions}
         />
-         <BasicModal propsOpen={open} setOpen={setOpen} title='這是MOdal' triggerType='text' ModalWidth={600}
+         <BasicModal propsOpen={open} setOpen={setOpen} title='這是Modal' triggerType='text' ModalWidth={600}
         children={
           <>
             這是內容
@@ -190,20 +210,17 @@ const onSubmit = (form: FormData) => {
       <Button
         loading={loginMutation.isPending}
         type="submit"
-        variant="contained"
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        variant="contained">
         提交
       </Button>
       <Button
         onClick={increment}
-        variant="contained"
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        variant="contained">
         增加
       </Button>
        <Button
         onClick={decrement}
-        variant="contained"
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        variant="contained">
         減少
       </Button>
        <Controller
@@ -218,34 +235,25 @@ const onSubmit = (form: FormData) => {
       />
   {loginMutation.isPending && <p>Loading...</p>}
     </form>
-    <DevTool control={methods.control
-    } ></DevTool>
+    {/* <DevTool control={methods.control
+    } ></DevTool> */}
     </FormProvider>
     <div className="pl-4">
-    <TableMarket/>
+    {/* <TableMarket/> */}
       <button onClick={clear}>清空紀錄</button>
       <p>目前紀錄：{keys.join(', ')}</p>
     </div>
-    <ToggleButtonGroup/>
+  {/* <ToggleButtonGroup selected={selected} onChange={setSelected} />
+  selected:{selected} */}
+
+
     <CheckCircleOutlineIcon sx={{ color: 'green' }}></CheckCircleOutlineIcon>
     <ErrorOutlineIcon sx={{ color: 'red' }}></ErrorOutlineIcon>
     <button onClick={handleClick({ vertical: 'top', horizontal: 'center' })}>
       top-center
     </button>
 
-    {/* <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={openSnackbar}
-        onClose={handleCloseSnackbar}
-        message="I love snacks"
-        key={vertical + horizontal}
-        autoHideDuration={3000}
 
-      >
-        <CustomAlert onClose={handleCloseSnackbar} severity="info" sx={{ width: '100%' }}>
-          This is a success message!
-        </CustomAlert>
-      </Snackbar> */}
 
     <CustomSnackbar
         open={openSnackbar}
@@ -255,7 +263,7 @@ const onSubmit = (form: FormData) => {
         autoHideDuration={3000}
 
         />
-    </div>
+    </>
   )
 }
 

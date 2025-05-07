@@ -108,7 +108,6 @@ function Row<T>({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    cursor: 'move',
   }
 
   return (
@@ -141,6 +140,7 @@ function Row<T>({
                 border: '1px solid #ccc',
                 padding: '8px',
                 textAlign: 'center',
+                cursor: 'grab',
               }}
             >
               ☰
