@@ -81,6 +81,85 @@ const FuturesOrder = () => {
                     useRHF={true}
                   />
                 </div>
+
+                <div>
+                  <p>請選擇商品</p>
+                  <div>
+                    <span>常用商品列表</span>
+                    <div className='flex mb-3'>
+                      <RadioButton
+                        label="一般下單"
+                        value="StandardOrder"
+                        selectedValue={selectedValue}
+                        onChange={handleChange}
+                        labelShow={false}
+                      />
+                      <SelectBase
+                        selectName="開平倉碼"
+                        selectId="positionCode"
+                        options={closePositionOptions}
+                        selectWidth="280px"
+                        showLabel={false}
+                        useRHF={true}
+                      />
+                      <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        sx={{ marginLeft: '10px' }}
+                        onClick={() => {
+                          // 這裡可以加入API呼叫或其他下載邏輯
+                          console.log('下載委託資訊');
+                        }}
+                      >
+                        查詢
+                      </Button>
+                    </div>
+                  </div>
+                  <div>
+                    <span>全商品查詢</span>
+                    <div className='flex mb-3'>
+                      <RadioButton
+                        label="一般下單"
+                        value="StandardOrder"
+                        selectedValue={selectedValue}
+                        onChange={handleChange}
+                        labelShow={false}
+                      />
+                      <SelectBase
+                        selectName="開平倉碼"
+                        selectId="positionCode"
+                        options={closePositionOptions}
+                        selectWidth="100px"
+                        showLabel={false}
+                        useRHF={true}
+                      />
+                      <span className='ml-4'></span>
+
+                      <SelectBase
+                        selectName="開平倉碼"
+                        selectId="positionCode"
+                        options={closePositionOptions}
+                        selectWidth="200px"
+                        showLabel={false}
+                        useRHF={true}
+                      />
+
+                      <Button
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        sx={{ marginLeft: '10px' }}
+                        onClick={() => {
+                          // 這裡可以加入API呼叫或其他下載邏輯
+                          console.log('下載委託資訊');
+                        }}
+                      >
+                        查詢
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div>
@@ -140,6 +219,22 @@ const FuturesOrder = () => {
                     type='number'
                     useRHF={true}
                   />
+                  <div className='flex gap-4 items-center '>
+                    <Button
+                      type="button"
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => {
+                        // 這裡可以加入API呼叫或其他下載邏輯
+                        console.log('下載委託資訊');
+                      }}
+                    >
+                      漲跌停查詢
+                    </Button>
+                    <span>
+                      價格區間
+                    </span>
+                  </div>
 
                   <SelectBase
                     selectName="委託條件"
