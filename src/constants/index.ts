@@ -3,3 +3,10 @@ export const patterns ={
 }
 
 export const API_TIMEOUT_TIME = 30000
+
+
+export const MuiTableFooterHideCss = {
+            '& .MuiDataGrid-footerContainer': {
+              display: 'none',
+            },
+}
