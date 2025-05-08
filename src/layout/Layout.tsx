@@ -1,5 +1,5 @@
-import Sidebar from "@/components/SideBar";
-import Header from "@/components/Header";
+import Sidebar from "@/layout/SideBar";
+import Header from "@/layout/Header";
 import { Outlet } from "react-router";
 
 export default function Layout() {
