@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const login2Schema = z.object({
+export const loginSchema = z.object({
   lineBroker: z.string().min(1, { message: "線路期貨商為必填項目" }),
   brokerCode: z.string().min(1, { message: "期貨商代號為必填項目" }),
   account: z.string().min(1, { message: "登入帳號為必填項目" }),
@@ -11,9 +11,9 @@ export const login2Schema = z.object({
   captcha: z.string().min(4, { message: "驗證碼為必填項目" }),
 });
 
-export type Login2FormData = z.infer<typeof login2Schema>;
+export type LoginFormData = z.infer<typeof loginSchema>;
 
-export const login2DefaultValues: Login2FormData = {
+export const loginDefaultValues: LoginFormData = {
   lineBroker: "F999000",
   brokerCode: "F999000",
   account: "",

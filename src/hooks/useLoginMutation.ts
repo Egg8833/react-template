@@ -24,13 +24,13 @@ export const useLoginMutation = () => {
         })
       }
     },
-    onError: (error) => {
-      console.error('登入失敗', error)
-      alertErr({
-        title: '登入失敗',
-        text: '請檢查您的帳號和密碼',
-        confirmButtonText: '確定'
-      })
-    }
+    // onError: (error) => {
+    //   console.error('登入失敗', error)
+    //   alertErr({
+    //     title: '登入失敗',
+    //     text: '請檢查您的帳號和密碼',
+    //     confirmButtonText: '確定'
+    //   })
+    // }
   })
 }

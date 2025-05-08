@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { Select, MenuItem } from "@mui/material";
-import { useFormContext, Controller } from "react-hook-form";
 
 interface SelectBaseProps {
   selectName: string;
@@ -11,6 +10,11 @@ interface SelectBaseProps {
   showLabel?: boolean;
   labelRow?: boolean;
   labelWidth?: string;
+
+  value: string;
+  onChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
+  error?: boolean;
+  helperText?: string;
 }
 
 const SelectBase: React.FC<SelectBaseProps> = ({
@@ -22,15 +26,14 @@ const SelectBase: React.FC<SelectBaseProps> = ({
   showLabel = true,
   labelRow = true,
   labelWidth,
-}) => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
 
-  // 取得對應欄位的錯誤資訊
-  const errorMessage = errors[selectId]?.message as string | undefined;
-  const hasError = !!errorMessage;
+  value,
+  onChange,
+  error = false,
+  helperText,
+}) => {
+  const hasError = error;
+  const errorMessage = helperText;
 
   const dynamicStyles = useMemo(() => ({
     width: selectWidth,
@@ -51,26 +54,21 @@ const SelectBase: React.FC<SelectBaseProps> = ({
           {selectName}
         </label>
       )}
-      <Controller
-        name={selectId}
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            id={selectId}
-            error={hasError}
-            displayEmpty
-            disabled={disabled}
-            sx={dynamicStyles}
-          >
-            {options.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        )}
-      />
+      <Select
+        id={selectId}
+        value={value}
+        onChange={(event) => onChange(event as React.ChangeEvent<{ value: unknown }>)}
+        error={hasError}
+        displayEmpty
+        disabled={disabled}
+        sx={dynamicStyles}
+      >
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
       {hasError && <p className="text-red-500 text-xs">{errorMessage}</p>}
     </div>
   );

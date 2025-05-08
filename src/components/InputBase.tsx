@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import TextField from "@mui/material/TextField";
-import { useFormContext } from "react-hook-form";
 
 interface InputBaseProps {
   inputName: string;
@@ -14,9 +13,17 @@ interface InputBaseProps {
   type?: "text" | "password" | "number" | "email";
   errorStyleMb?: boolean;
   labelStyle?: React.CSSProperties;
+  placeholder?: string;
+
+  // 控制输入的属性
+  value?: string | number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: boolean;
+  helperText?: string;
 }
 
 const InputBase: React.FC<InputBaseProps> = ({
+  placeholder = '請輸入...',
   inputName,
   inputId,
   inputWidth = "200px",
@@ -28,12 +35,13 @@ const InputBase: React.FC<InputBaseProps> = ({
   type = "text",
   children,
   labelStyle,
+  value,
+  onChange,
+  error = false,
+  helperText,
 }) => {
-  const { register, formState: { errors } } = useFormContext();
-
-  const errorMessage = errors?.[inputId]?.message as string | undefined;
-  const hasError = Boolean(errorMessage);
-
+  const hasError = error;
+  const errorMessage = helperText;
 
   const dynamicStyles = useMemo(() => ({
     width: inputWidth,
@@ -47,7 +55,6 @@ const InputBase: React.FC<InputBaseProps> = ({
       },
     }),
   }), [inputWidth, disabled]);
-
 
   const helperTextStyles = useMemo(() => ({
     formHelperText: {
@@ -74,9 +81,11 @@ const InputBase: React.FC<InputBaseProps> = ({
         disabled={disabled}
         sx={dynamicStyles}
         type={type}
-        {...register(inputId)}
+        value={value}
+        onChange={onChange}
         autoComplete="off"
         slotProps={helperTextStyles}
+        placeholder={placeholder}
       />
 
       {children}

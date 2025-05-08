@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-const initialProducts = Array.from({ length: 50 }, (_, i) => ({
+const initialProducts = Array.from({ length: 30 }, (_, i) => ({
   id: i,
   name: `臺股期貨 ${2500 + i}.TXF`,
 }));
