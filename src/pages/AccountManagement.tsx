@@ -138,7 +138,13 @@ const handleDelete = (id: number) => {
   }}>
       <h2 className='m-0 mb-2 '>會員帳號管理 {count}</h2>
       <Box sx={{minWidth: 800}}>
-        <CustomDataTable rows={rows} columns={columns} />
+        <CustomDataTable rows={rows} columns={columns}
+  // 移除分頁      customStyles={{
+  //          '& .MuiDataGrid-footerContainer': {
+  //   display: 'none',
+  // },
+  //       }}
+         />
       </Box>
       <Button onClick={increment}>+</Button>
       <Button onClick={decrement}>-</Button>

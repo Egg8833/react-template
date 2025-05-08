@@ -88,7 +88,7 @@ const AutoOrder = () => {
               清除所有內容
             </Button>
           </div>
-          <div className="p-4 flex gap-4">
+          <div className="p-4 flex gap-4 flex-wrap">
             <div>
               <p className='mb-3'>交易人身分與委託書號確認</p>
               <div className='flex gap-2'>

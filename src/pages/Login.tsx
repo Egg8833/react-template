@@ -5,8 +5,8 @@ import {FormLoginData,schema,defaultValues} from '@/type/loginSchema'
 import {zodResolver} from '@hookform/resolvers/zod'
 
 import LockIcon from '@mui/icons-material/Lock';
-import InputBase from '@/components/RHForm/InputBase';
-import CheckboxBase from '@/components/RHForm/checkBoxBase';
+import InputBase from '@/components/RHForm/InputBaseFormHook';
+import CheckboxBase from '@/components/RHForm/checkBoxBaseFormHook';
 const Login: React.FC = () => {
   const methods = useForm<FormLoginData>({
     mode: 'all',
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
 
               />
               {/* 記住我選項 */}
-              <CheckboxBase name="rememberMe" label='記住我' />
+              {/* <CheckboxBase name="rememberMe" label='記住我' /> */}
             </div>
             {/* 登入按鈕 */}
             <Button
