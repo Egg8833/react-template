@@ -8,7 +8,9 @@ import {
   Collapse,
   Box,
 } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+
 import { Link as RouterLink } from "react-router-dom";
 
 // 選單項目
