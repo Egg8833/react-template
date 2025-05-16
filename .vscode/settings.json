@@ -1,0 +1,9 @@
+{
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "file": "conventionalCommit.md"
+    }
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
