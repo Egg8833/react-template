@@ -1,13 +1,10 @@
-import {useState,useRef } from 'react'
+import {useState} from 'react'
 import {Button} from '@mui/material'
 import {useForm,FormProvider,Controller} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {FormData,schema,defaultValues} from '@/type/schema'
-import {DevTool} from '@hookform/devtools'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from "@mui/material/FormControlLabel";
-import TableMarket from '@/components/TableMarket'
-import ToggleButtonGroup from '@/components/ToggleButtonGroup'
 import InputBase from '@/components/RHForm/InputBaseFormHook'
 import SelectBase from '@/components/RHForm/SelectBaseFormHook'
 import Input from '@/components/InputhookForm'
@@ -19,9 +16,7 @@ import { useCounter } from '@/hooks/useCounter'
 import { useKeyboardLogger } from '@/hooks/useKeyboardLogger'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
-import MuiAlert, { AlertColor } from '@mui/material/Alert';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { SnackbarOrigin } from '@mui/material/Snackbar';
 import CustomSnackbar from '@/components/CustomSnackbar'
 import DraggableTable from "@/components/DraggableTable";
 
@@ -60,7 +55,6 @@ const Test = () => {
    const {count,increment,decrement} =useCounter(0)
    const {data: userData, isLoading} = useUserQuery(count.toString())
    const methods  = useForm<FormData>({
-
     mode: 'all', resolver: zodResolver(schema),defaultValues})
     const {  handleSubmit,control } = methods;
 
@@ -76,12 +70,12 @@ const Test = () => {
    const [state, setState] = useState<SnackbarOrigin & { openSnackbar: boolean }>({
     openSnackbar: false,
     vertical: 'top',
-    horizontal: 'center',
+    horizontal: 'center',  
   });
-  const { vertical, horizontal,  openSnackbar } = state;
-  const [selected, setSelected] = useState("left");
-
-    const handleClick = (newState: SnackbarOrigin) => () => {
+  
+  const { vertical: _vertical, horizontal: _horizontal, openSnackbar } = state;
+  
+  const handleClick = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, openSnackbar: true });
   };
 
@@ -91,22 +85,17 @@ const Test = () => {
 
   const { keys, clear } = useKeyboardLogger()
 
-
-
-
-
-
   // 提交表單
-const onSubmit = (form: FormData) => {
-  console.log('Form Data:', form)
+  const onSubmit = (form: FormData) => {
+    console.log('Form Data:', form)
 
-  const loginData: LoginPayload = {
-    UserID: '1030759',      // 可替換成 form.account
-    UserCyph: '!QAZ3edc'    // 可替換成 form.password
+    const loginData: LoginPayload = {
+      UserID: '1030759',      // 可替換成 form.account
+      UserCyph: '!QAZ3edc'    // 可替換成 form.password
+    }
+
+    loginMutation.mutate(loginData)
   }
-
-  loginMutation.mutate(loginData)
-}
 
 
 
@@ -242,14 +231,12 @@ const onSubmit = (form: FormData) => {
     {/* <TableMarket/> */}
       <button onClick={clear}>清空紀錄</button>
       <p>目前紀錄：{keys.join(', ')}</p>
-    </div>
-  {/* <ToggleButtonGroup selected={selected} onChange={setSelected} />
+    </div>  {/* <ToggleButtonGroup selected={selected} onChange={setSelected} />
   selected:{selected} */}
 
 
     <CheckCircleOutlineIcon sx={{ color: 'green' }}></CheckCircleOutlineIcon>
-    <ErrorOutlineIcon sx={{ color: 'red' }}></ErrorOutlineIcon>
-    <button onClick={handleClick({ vertical: 'top', horizontal: 'center' })}>
+    <ErrorOutlineIcon sx={{ color: 'red' }}></ErrorOutlineIcon>    <button onClick={handleClick({ vertical: 'top', horizontal: 'center' })}>
       top-center
     </button>
 
