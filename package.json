@@ -1,0 +1,11 @@
+{
+  "name": "react-template",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {
+    "@dnd-kit/utilities": "^3.2.2",
+    "@mui/system": "^7.1.0"
+  }
+}
