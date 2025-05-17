@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Typography, Paper, Box } from '@mui/material';
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import {FormLoginData,schema,defaultValues} from '@/type/loginSchema'
@@ -6,7 +5,6 @@ import {zodResolver} from '@hookform/resolvers/zod'
 
 import LockIcon from '@mui/icons-material/Lock';
 import InputBase from '@/components/RHForm/InputBaseFormHook';
-import CheckboxBase from '@/components/RHForm/checkBoxBaseFormHook';
 const Login: React.FC = () => {
   const methods = useForm<FormLoginData>({
     mode: 'all',

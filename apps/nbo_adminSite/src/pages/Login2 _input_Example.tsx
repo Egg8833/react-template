@@ -21,7 +21,7 @@ import {
 } from '@/type/login2Schema'
 
 const Login2: React.FC = () => {
-  const [selected, setSelected] = useState<'left' | 'right'>('left')
+  const [selected, setSelected] = useState('left')
   const [captchaCode, setCaptchaCode] = useState('')
   const [trigger, setTrigger] = useState(0)
 
@@ -93,9 +93,8 @@ const Login2: React.FC = () => {
     // 你可以在這裡執行 API 請求或驗證邏輯
   }
   const [checked, setChecked] = React.useState(true)
-
   const handleChange = (
-    event: React.SyntheticEvent<Element, Event>,
+    _: React.SyntheticEvent<Element, Event>,
     checked: boolean
   ) => {
     console.log('check', checked)

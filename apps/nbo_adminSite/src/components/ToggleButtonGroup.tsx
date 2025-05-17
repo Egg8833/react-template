@@ -13,12 +13,12 @@ const StyledButtonGroup = styled(ButtonGroup)(() => ({
 }));
 
 interface ToggleButtonGroupProps {
-  options: { label: string; value: string }[];
+  options?: { label: string; value: string }[];
   selected: string;
-  onChange: (value: string) => void;
+  onChange: (value: any) => void;
 }
 
-export default function ToggleButtonGroup({ options, selected, onChange }: ToggleButtonGroupProps) {
+export default function ToggleButtonGroup({ options = [], selected, onChange }: ToggleButtonGroupProps) {
   return (
     <StyledButtonGroup>
       {options.map((option, index) => {

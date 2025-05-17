@@ -1,2 +1,6 @@
 packages:
-  - 'apps/*'
+  - apps/*
+  - 'packages/*'
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - esbuild

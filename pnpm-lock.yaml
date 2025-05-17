@@ -148,9 +148,45 @@ importers:
         specifier: ^3.0.8
         version: 3.1.3(@types/node@22.15.18)(@vitest/ui@3.1.3)(jiti@2.4.2)(jsdom@26.1.0)
 
-  apps/nbo_adminSite: {}
+  apps/nbo_adminSite:
+    dependencies:
+      '@nbo/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
 
-  apps/nbo_orderingSystem: {}
+  apps/nbo_orderingSystem:
+    dependencies:
+      '@nbo/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+
+  packages/ui:
+    dependencies:
+      '@mui/material':
+        specifier: ^6.0.0
+        version: 6.4.11(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@mui/system':
+        specifier: ^7.0.0
+        version: 7.1.0(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react@19.1.0)
+      '@mui/x-data-grid':
+        specifier: ^7.0.0
+        version: 7.29.3(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react@19.1.0))(@mui/material@6.4.11(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@mui/system@7.1.0(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react@19.1.0))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react:
+        specifier: ^19.0.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.1.0(react@19.1.0)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.1.4
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.1.5(@types/react@19.1.4)
+      typescript:
+        specifier: ~5.7.2
+        version: 5.7.3
 
 packages:
 

@@ -5,11 +5,21 @@
   "type": "module",
   "workspaces": [
     "apps/*"
-  ],
-  "scripts": {
+  ],  "scripts": {
     "dev:admin": "pnpm --filter nbo_admin_site dev",
     "dev:order": "pnpm --filter nbo_ordering_system dev",
-    "build": "pnpm -r run build"
+    "build": "pnpm -r run build",
+    "build:admin": "pnpm --filter nbo_admin_site build",
+    "build:order": "pnpm --filter nbo_ordering_system build",
+    "build:ui": "pnpm --filter @nbo/ui build",
+    "build:all": "pnpm -r --filter=nbo_admin_site... --filter=nbo_ordering_system... --filter=@nbo/ui... build",
+    "preview:admin": "pnpm --filter nbo_admin_site preview",
+    "preview:order": "pnpm --filter nbo_ordering_system preview",
+    "docker:deploy": "bash ./script/docker-deploy.sh",
+    "docker:deploy:skip-build": "bash ./script/docker-deploy.sh --skip-build",
+    "docker:deploy:win": ".\\script\\docker-deploy.cmd",
+    "docker:deploy:win:skip-build": ".\\script\\docker-deploy.cmd --skip-build",
+    "docker:stop": "docker stop nbo-admin nbo-ordering"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

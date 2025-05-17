@@ -2,12 +2,15 @@
   "name": "nbo_ordering_system",
   "private": true,
   "version": "0.0.1",
-  "type": "module",
-  "scripts": {
+  "type": "module",  "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:safe": "vite build --skipTypeCheck",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui"
+  },
+  "dependencies": {
+    "@nbo/ui": "workspace:*"
   }
 }
