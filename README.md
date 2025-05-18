@@ -330,4 +330,34 @@ pnpm lint:fix
 3. 確保所有測試通過
 4. 提交拉取請求 (PR) 供審核
 
+### 更新部署專用分支
+
+本專案使用固定的 `deploy-linux` 分支處理所有生產環境的部署工作。此分支只包含部署所需的必要檔案，大幅減少了不必要的檔案，特別適合在 Linux 生產環境使用。
+
+當需要部署新版本時，可以使用我們提供的腳本更新部署分支：
+
+```bash
+# 1. 確保已經建構最新版本
+pnpm build
+
+# 2. 在 Linux/macOS 環境下執行
+bash ./script/update-deploy-branch.sh
+
+# 或在 Windows 環境下執行
+.\script\update-deploy-branch.cmd
+```
+
+此腳本會：
+1. 保存當前分支狀態
+2. 切換到 `deploy-linux` 分支（如果不存在則建立）
+3. 移除所有非部署必要的檔案（如原始碼、測試檔案等）
+4. 只保留以下內容：
+   - 最新建構的應用程式（dist 目錄）
+   - Nginx 配置檔案
+   - Docker 部署腳本
+   - 精簡版的 package.json 和 README.md
+5. 提交變更並返回原始分支
+
+在 Linux 生產伺服器上，只需從遠端倉庫拉取 `deploy-linux` 分支的最新變更，然後執行 `npm run deploy` 即可部署最新版本。
+
 

@@ -19,7 +19,9 @@
     "docker:deploy:skip-build": "bash ./script/docker-deploy.sh --skip-build",
     "docker:deploy:win": ".\\script\\docker-deploy.cmd",
     "docker:deploy:win:skip-build": ".\\script\\docker-deploy.cmd --skip-build",
-    "docker:stop": "docker stop nbo-admin nbo-ordering"
+    "docker:stop": "docker stop nbo-admin nbo-ordering",
+    "update:deploy-branch": "bash ./script/update-deploy-branch.sh",
+    "update:deploy-branch:win": ".\\script\\update-deploy-branch.cmd"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
