@@ -93,10 +93,10 @@ CMD ["nginx", "-g", "daemon off;"]
 # 1. 先在主分支上確保應用程式已建構成功
 pnpm build
 
-# 2. 更新部署分支
-bash ./script/update-deploy-branch.sh
+# 2. 產生部署資料夾
+pnpm deploy:linux
 ```
 
-此腳本會自動將最新的建構結果更新到 `deploy-linux` 分支，保持部署環境的精簡和專注。
+此腳本會自動產生一個名為 `deploy-linux` 的資料夾，其中只包含部署所需的檔案，保持部署環境的精簡和專注。
 
-在 Linux 生產伺服器上，只需從遠端倉庫拉取 `deploy-linux` 分支的最新變更，然後執行部署命令即可。
+在 Linux 生產伺服器上，只需將產生的 `deploy-linux` 資料夾複製到伺服器上，然後執行部署命令即可。

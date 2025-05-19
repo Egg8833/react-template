@@ -182,6 +182,25 @@ pnpm docker:stop
 
 此專案包含多個位於 `script/` 資料夾中的腳本，用於自動化常見工作：
 
+### deploy-linux.sh
+
+產生部署資料夾的腳本：
+
+```bash
+# Linux/macOS 環境下執行
+pnpm deploy:linux
+
+# Windows 環境下執行
+pnpm deploy:linux:win
+```
+
+執行以下操作：
+1. 自動執行建構
+2. 在專案根目錄建立 `deploy-linux` 資料夾
+3. 複製所有部署必要的檔案到該資料夾中
+4. 生成簡化版 package.json 和說明文件
+
+產生的資料夾可直接複製到 Linux 伺服器上進行部署。
 
 ### docker-deploy.sh
 
@@ -332,26 +351,25 @@ pnpm lint:fix
 
 ### 更新部署專用分支
 
-本專案使用固定的 `deploy-linux` 分支處理所有生產環境的部署工作。此分支只包含部署所需的必要檔案，大幅減少了不必要的檔案，特別適合在 Linux 生產環境使用。
+本專案提供腳本產生部署資料夾，此資料夾只包含部署所需的必要檔案，大幅減少了不必要的檔案，特別適合在 Linux 生產環境使用。
 
-當需要部署新版本時，可以使用我們提供的腳本更新部署分支：
+當需要部署新版本時，可以使用我們提供的腳本產生部署資料夾：
 
 ```bash
 # 1. 確保已經建構最新版本
 pnpm build
 
 # 2. 在 Linux/macOS 環境下執行
-bash ./script/update-deploy-branch.sh
+pnpm generate:deploy-folder
 
 # 或在 Windows 環境下執行
-.\script\update-deploy-branch.cmd
+pnpm generate:deploy-folder:win
 ```
 
 此腳本會：
-1. 保存當前分支狀態
-2. 切換到 `deploy-linux` 分支（如果不存在則建立）
-3. 移除所有非部署必要的檔案（如原始碼、測試檔案等）
-4. 只保留以下內容：
+1. 在專案根目錄建立一個 `deploy-linux` 資料夾
+2. 移除所有非部署必要的檔案（如原始碼、測試檔案等）
+3. 只保留以下內容：
    - 最新建構的應用程式（dist 目錄）
    - Nginx 配置檔案
    - Docker 部署腳本
