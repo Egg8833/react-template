@@ -34,7 +34,7 @@
 ### 目錄結構
 
 ```
-react-template/
+NBO_Frontend/
 ├── .nvmrc                      # Node.js 版本控制檔案
 ├── apps/                       # 應用程式目錄
 │   ├── nbo_adminSite/          # 管理員後台
@@ -52,7 +52,7 @@ react-template/
 │   │   │   ├── type/           # 型別定義
 │   │   │   └── utils/          # 共用工具函式
 │   │   ├── tests/              # 測試檔案
-│   │   ├── Dockerfile          # Docker 設定檔
+│   │   ├── Dockerfile    # Docker 設定檔
 │   │   ├── index.html          # HTML 進入點
 │   │   ├── tsconfig.json       # TypeScript 設定
 │   │   └── vite.config.ts      # Vite 設定檔
@@ -72,7 +72,7 @@ react-template/
 │       │   ├── type/           # 型別定義
 │       │   └── utils/          # 共用工具函式
 │       ├── tests/              # 測試檔案
-│       ├── Dockerfile          # Docker 設定檔
+│       ├── Dockerfile   # Docker 設定檔
 │       ├── index.html          # HTML 進入點
 │       ├── tsconfig.json       # TypeScript 設定
 │       └── vite.config.ts      # Vite 設定檔
@@ -84,9 +84,15 @@ react-template/
 │       └── tsconfig.json       # TypeScript 設定
 │
 ├── script/                     # 自動化腳本
-│   ├── docker-deploy.cmd       # Windows 環境下 Docker 部署腳本
-│   ├── docker-deploy.sh        # Docker 環境中建構與部署腳本
+│   ├── docker-build.cmd        # Windows 環境下 Docker 建構腳本
+│   ├── docker-build.sh         # Docker 環境中建構腳本
 │ 
+├── deploy-linux/               # 部署專用資料夾 (腳本生成的資料夾)
+│   ├── apps/                   # 部署用應用程式
+│   ├── script/                 # 部署腳本
+│   ├── package.json            # 簡化版套件定義檔
+│   └── README.md               # 部署說明
+│
 ├── package.json                # 根目錄套件定義檔
 └── pnpm-workspace.yaml         # pnpm 工作區設定
 ```
@@ -117,14 +123,8 @@ cd nbo-frontend
 pnpm install
 ```
 
-### 3. 設定腳本執行權限 (Linux/macOS)
 
-```bash
-# 設定所有腳本的執行權限
-pnpm setup
-```
-
-### 4. 本地開發
+### 3. 本地開發
 
 ```bash
 # 啟動管理員後台開發伺服器
@@ -134,7 +134,7 @@ pnpm dev:admin
 pnpm dev:order
 ```
 
-### 5. 建構專案
+### 4. 建構專案
 
 ```bash
 # 建構單一專案
@@ -143,10 +143,11 @@ pnpm build:order  # 建構訂單系統
 pnpm build:ui     # 建構共享 UI 元件庫
 
 # 建構所有專案
-pnpm build      # 在所有工作區執行 build 命令
+pnpm build        # 在所有工作區執行 build 命令
+pnpm build:all    # 建構所有相依專案，確保正確的建構順序
 ```
 
-### 6. 預覽建構結果
+### 5. 預覽建構結果
 
 ```bash
 # 預覽管理員後台
@@ -156,11 +157,18 @@ pnpm preview:admin
 pnpm preview:order
 ```
 
-### 7. Docker 容器化部署
+### 6. Docker 容器化部署
 
 ```bash
 # 在 Docker 環境中建構並部署
-pnpm docker:deploy
+pnpm docker:build
+# 跳過建構步驟部署
+pnpm docker:build:skip-build
+
+# Windows 環境下建構並部署
+pnpm docker:build:win
+# Windows 環境下跳過建構步驟部署
+pnpm docker:build:win:skip-build
 
 # 停止正在執行的 Docker 容器
 pnpm docker:stop
@@ -197,17 +205,17 @@ pnpm deploy:linux:win
 執行以下操作：
 1. 自動執行建構
 2. 在專案根目錄建立 `deploy-linux` 資料夾
-3. 複製所有部署必要的檔案到該資料夾中
+3. 複製所有部署必要的檔案到該資料夾中（包括建構結果、Docker 和 Nginx 設定）
 4. 生成簡化版 package.json 和說明文件
 
 產生的資料夾可直接複製到 Linux 伺服器上進行部署。
 
-### docker-deploy.sh
+### docker-build.sh
 
-用於建構並部署 Docker 容器的腳本：
+用於建構 Docker 容器的腳本：
 
 ```bash
-pnpm docker:deploy
+pnpm docker:build
 ```
 
 執行以下操作：
@@ -219,14 +227,14 @@ pnpm docker:deploy
 
 如果已完成建構，可以跳過建構步驟：
 ```bash
-pnpm docker:deploy:skip-build
+pnpm docker:build:skip-build
 ```
 
 Windows 環境下使用：
 ```cmd
-pnpm docker:deploy:win
+pnpm docker:build:win
 # 或跳過建構
-pnpm docker:deploy:win:skip-build
+pnpm docker:build:win:skip-build
 ```
 
 部署後，可透過以下網址訪問：
@@ -262,7 +270,7 @@ pnpm -r test
 
 ### Docker 映像檔
 
-執行 `pnpm docker:deploy` 後，系統會建立以下 Docker 映像檔：
+執行 `pnpm docker:build` 後，系統會建立以下 Docker 映像檔：
 - `nbo-admin-site`: 管理員後台映像檔 (使用本地建構結果)
 - `nbo-ordering-system`: 訂單系統映像檔 (使用本地建構結果)
 
@@ -281,7 +289,7 @@ pnpm -r test
 
 ### 容器資源管理
 
-Docker 容器已設定適當的資源限制，以確保在各種環境中的最佳效能。若要調整資源限制，請編輯 `docker-deploy.sh` 腳本中的相關參數。
+Docker 容器已設定適當的資源限制，以確保在各種環境中的最佳效能。若要調整資源限制，請編輯 `docker-build.sh` 腳本中的相關參數。
 
 ## 常見問題與解決方案
 
@@ -315,7 +323,7 @@ netstat -ano | findstr "8080 8081"
 netstat -tuln | grep "8080\|8081"
 ```
 
-需要時，請修改 `docker-deploy.sh` 中的連接埠映射。
+需要時，請修改 `docker-build.sh` 中的連接埠映射。
 
 ## 開發指南
 
@@ -356,14 +364,12 @@ pnpm lint:fix
 當需要部署新版本時，可以使用我們提供的腳本產生部署資料夾：
 
 ```bash
-# 1. 確保已經建構最新版本
-pnpm build
-
+# 1. 確保已經建構最新版本 (腳本會自動執行建構)
 # 2. 在 Linux/macOS 環境下執行
-pnpm generate:deploy-folder
+pnpm deploy:linux
 
 # 或在 Windows 環境下執行
-pnpm generate:deploy-folder:win
+pnpm deploy:linux:win
 ```
 
 此腳本會：
@@ -376,6 +382,6 @@ pnpm generate:deploy-folder:win
    - 精簡版的 package.json 和 README.md
 5. 提交變更並返回原始分支
 
-在 Linux 生產伺服器上，只需從遠端倉庫拉取 `deploy-linux` 分支的最新變更，然後執行 `npm run deploy` 即可部署最新版本。
+在 Linux 生產伺服器上，只需將產生的 `deploy-linux` 資料夾複製到伺服器上，然後執行 `npm run deploy` 即可部署最新版本。
 
 

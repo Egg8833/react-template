@@ -1,8 +1,8 @@
 @echo off
 chcp 65001 >nul
-REM 用於在 Windows 本地建構後部署 Docker 容器的批次腳本
+REM 用於在 Windows 本地建構 Docker 容器的批次腳本
 
-echo === 開始本地建構與部署 NBO 前端專案 ===
+echo === 開始本地建構 NBO 前端專案 ===
 
 REM 檢查 Docker 是否可用
 echo 檢查 Docker 是否安裝並可用中...
@@ -100,7 +100,7 @@ echo [步驟 4] 建構 Docker 映像檔...
 
 echo 建構 nbo-admin-site...
 cd .\apps\nbo_adminSite
-docker build -t nbo-admin-site:latest -f Dockerfile.local-build .
+docker build -t nbo-admin-site:latest -f Dockerfile .
 if %ERRORLEVEL% neq 0 (
     echo [錯誤] 建構 nbo-admin-site 映像檔失敗！
     cd ..\..
@@ -110,7 +110,7 @@ cd ..\..
 
 echo 建構 nbo-ordering-system...
 cd .\apps\nbo_orderingSystem
-docker build -t nbo-ordering-system:latest -f Dockerfile.local-build .
+docker build -t nbo-ordering-system:latest -f Dockerfile .
 if %ERRORLEVEL% neq 0 (
     echo [錯誤] 建構 nbo-ordering-system 映像檔失敗！
     cd ..\..
@@ -135,7 +135,7 @@ docker ps -f name=nbo-admin -f name=nbo-ordering
 
 REM 顯示完成訊息
 echo.
-echo === ✅ 部署完成！ ===
+echo === ✅ 建構完成！ ===
 echo 管理員後台：http://localhost:8080
 echo 訂單系統：http://localhost:8081
 echo.

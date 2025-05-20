@@ -1,5 +1,5 @@
 #!/bin/bash
-# 用於在 Unix/macOS 上本地建構與部署 NBO 前端專案
+# 用於在 Unix/macOS 上本地建構 NBO 前端專案
 
 set -e
 
@@ -9,7 +9,7 @@ GREEN='\033[1;32m'
 RED='\033[1;31m'
 NC='\033[0m'
 
-echo -e "${YELLOW}=== 開始本地建構與部署 NBO 前端專案 ===${NC}"
+echo -e "${YELLOW}=== 開始本地建構 NBO 前端專案 ===${NC}"
 
 # 檢查 Docker 是否可用
 echo -e "${CYAN}檢查 Docker 是否安裝並可用...${NC}"
@@ -95,7 +95,7 @@ echo -e "${YELLOW}== 4. 建構 Docker 映像檔 ==${NC}"
 echo
 echo -e "${CYAN}建構管理員後台 Docker 映像檔...${NC}"
 cd ./apps/nbo_adminSite
-docker build -t nbo-admin-site:latest -f Dockerfile.local-build . || {
+docker build -t nbo-admin-site:latest -f Dockerfile . || {
     echo -e "${RED}管理員後台 Docker 映像檔建構失敗！${NC}"
     exit 1
 }
@@ -104,7 +104,7 @@ cd - > /dev/null
 echo
 echo -e "${CYAN}建構訂單系統 Docker 映像檔...${NC}"
 cd ./apps/nbo_orderingSystem
-docker build -t nbo-ordering-system:latest -f Dockerfile.local-build . || {
+docker build -t nbo-ordering-system:latest -f Dockerfile . || {
     echo -e "${RED}訂單系統 Docker 映像檔建構失敗！${NC}"
     exit 1
 }
@@ -128,7 +128,7 @@ docker ps --filter name=nbo-admin --filter name=nbo-ordering
 
 # 結尾提示
 echo
-echo -e "${GREEN}=== 部署完成！ ===${NC}"
+echo -e "${GREEN}=== 建構完成！ ===${NC}"
 echo -e "${CYAN}管理員後台網址：http://localhost:8080${NC}"
 echo -e "${CYAN}訂單系統網址：http://localhost:8081${NC}"
 echo

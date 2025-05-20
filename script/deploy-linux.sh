@@ -41,18 +41,18 @@ cp -r apps/nbo_orderingSystem/dist "$DEPLOY_DIR/apps/nbo_orderingSystem/"
 
 # 複製部署腳本和配置文件
 echo -e "${CYAN}複製配置文件...${NC}"
-cp -r script/docker-deploy.sh "$DEPLOY_DIR/script/"
+cp -r script/docker-build.sh "$DEPLOY_DIR/script/"
 
 # 設定腳本執行權限
 echo -e "${CYAN}設定腳本執行權限...${NC}"
-chmod +x "$DEPLOY_DIR/script/docker-deploy.sh"
+chmod +x "$DEPLOY_DIR/script/docker-build.sh"
 
-# 複製 Dockerfile.local-build
-echo -e "${CYAN}複製 Dockerfile.local-build...${NC}"
+# 複製 Dockerfile
+echo -e "${CYAN}複製 Dockerfile...${NC}"
 
-cp -r apps/nbo_adminSite/Dockerfile.local-build "$DEPLOY_DIR/apps/nbo_adminSite/"
-cp -r apps/nbo_orderingSystem/Dockerfile.local-build "$DEPLOY_DIR/apps/nbo_orderingSystem/"
-echo -e "${GREEN}成功複製 Dockerfile.local-build 檔案${NC}"
+cp -r apps/nbo_adminSite/Dockerfile "$DEPLOY_DIR/apps/nbo_adminSite/"
+cp -r apps/nbo_orderingSystem/Dockerfile "$DEPLOY_DIR/apps/nbo_orderingSystem/"
+echo -e "${GREEN}成功複製 Dockerfile 檔案${NC}"
 
 
 # 複製 nginx 配置檔
@@ -67,7 +67,7 @@ cat > "$DEPLOY_DIR/package.json" <<EOL
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "deploy": "bash ./script/docker-deploy.sh --skip-build",
+    "deploy": "bash ./script/docker-build.sh --skip-build",
     "stop": "docker stop nbo-admin nbo-ordering"
   }
 }
@@ -98,7 +98,7 @@ ${VERSION}
 │       └── nginx.conf     # Nginx 配置
 │
 ├── script/
-│   └── docker-deploy.sh   # Docker 部署腳本
+│   └── docker-build.sh    # Docker 建構腳本
 │
 ├── package.json           # 簡化版套件設定
 └── README.md              # 說明文件
@@ -123,8 +123,6 @@ EOL
 
 # 顯示完成訊息
 echo -e "${GREEN}部署資料夾 ${DEPLOY_DIR} 已建立成功！${NC}"
-echo -e "${CYAN}資料夾包含以下文件:${NC}"
-find "$DEPLOY_DIR" -type f | sort
 
 echo -e "\n${YELLOW}注意事項:${NC}"
 echo -e "1. 將整個 ${DEPLOY_DIR} 資料夾複製到伺服器上"
