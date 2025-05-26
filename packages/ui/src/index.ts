@@ -1,1 +1,2 @@
-export {CustomDataTable} from './CustomDataTable'
+export { CustomDataTable } from './CustomDataTable'
+export { MaterialWrapper } from './materialWrapper'

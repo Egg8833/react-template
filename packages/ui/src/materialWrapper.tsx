@@ -1,5 +1,5 @@
-// theme.ts
-import {createTheme, ThemeProvider, CssBaseline} from '@mui/material'
+import React from 'react'
+import { createTheme, ThemeProvider, CssBaseline } from '@mui/material'
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
@@ -57,7 +57,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ced4da", // 預設灰色，或你可以改為固定色
+            borderColor: "#ced4da", // 預設灰色，
           },
         },
         notchedOutline: {
@@ -76,17 +76,18 @@ const theme = createTheme({
       },
     },
   },
-   typography: {
+  typography: {
     h1: {
       fontSize: "24px", // 設定 h1 字體大小
     },
   }
 });
 
-
-export const MaterialWrapper = ({children}: {children: React.ReactNode}) => (
+export const MaterialWrapper = ({ children }: { children: React.ReactNode }) => (
   <>
     <CssBaseline />
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </>
 )
+
+
