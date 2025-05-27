@@ -19,7 +19,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { SnackbarOrigin } from '@mui/material/Snackbar';
 import CustomSnackbar from '@/components/CustomSnackbar'
 import DraggableTable from "@/components/DraggableTable";
-
+import { alertText } from '@/utils/useSwal'
 
 interface RowData {
   id: string;
@@ -38,9 +38,18 @@ const initialData: RowData[] = [
 
 const Test = () => {
 
-   const [rows, setRows] = useState(initialData);
+   alertText({
+      title: '登入閒置登出',
+      text: '登入閒置過久，已登出請重新連線登入',
+      confirmButtonText: '確認',
+      customClass: {
+        htmlContainer: 'red-text'
+      }
+    })
 
-  const handleDelete = (id: string) => {
+  const [rows, setRows] = useState(initialData);
+
+  const handleDelete = (id: string) => {    
     setRows((prev) => prev.filter((item) => item.id !== id));
   };
 

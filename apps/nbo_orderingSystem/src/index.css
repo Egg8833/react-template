@@ -1,4 +1,9 @@
- h1,h2,h3,h4,h5,h6,p{
+h1,h2,h3,h4,h5,h6,p{
     margin: 0;
     padding: 0;
+}
+
+/* SweetAlert2 自訂樣式 - 紅色文字 */
+.red-text {
+    color: red !important;
 }
