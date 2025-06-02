@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Button } from '@mui/material';
-import { CustomDataTable } from '@/components/CustomDataTable'
+import { CustomDataTable } from '@nbo/ui'
 // 定義會員權限介面
 interface MemberPermission {
   id: number;

@@ -4,7 +4,7 @@ import SelectBase from '@/components/RHForm/SelectBaseFormHook'
 import InputBase from '@/components/RHForm/InputBaseFormHook'
 import CheckBoxBaseFormHook from '@/components/RHForm/checkBoxBaseFormHook'
 import { GridColDef } from '@mui/x-data-grid'
-import { CustomDataTable } from '@/components/CustomDataTable'
+import { CustomDataTable } from '@nbo/ui'
 
 const columns: GridColDef[] = [
   { field: 'time', headerName: '委託時間', flex: 1, align: 'center', headerAlign: 'center' },

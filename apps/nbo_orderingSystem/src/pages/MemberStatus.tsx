@@ -1,5 +1,5 @@
 import { Button, Box, Typography } from '@mui/material'
-import { CustomDataTable } from '@/components/CustomDataTable'
+import { CustomDataTable } from '@nbo/ui'
 import { GridColDef } from '@mui/x-data-grid'
 const MemberStatus = () => {
 

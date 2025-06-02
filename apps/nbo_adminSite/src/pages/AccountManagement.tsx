@@ -1,7 +1,7 @@
 import React from 'react'
 import {GridColDef} from '@mui/x-data-grid'
 import {Button, Box} from '@mui/material'
-import {CustomDataTable} from '@/components/CustomDataTable'
+import {CustomDataTable} from '@nbo/ui'
 import {useCounterStore} from '@/store/counterStore'
 import {MuiTableFooterHideCss} from '@/constants'
 interface Member {
