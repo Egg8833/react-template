@@ -9,7 +9,7 @@
 此專案包含兩個主要前端應用：
 
 - **管理員後台 (nbo_adminSite)**: 系統管理員使用的後台介面
-- **訂單系統 (nbo_orderingSystem)**: 處理訂單的專用應用程式
+- **下單系統 (nbo_orderingSystem)**: 處理下單的專用應用程式
 
 專案採用 pnpm 工作區 (workspace) 管理，同時包含共享元件庫以提高程式碼重用。
 
@@ -27,7 +27,7 @@
 此專案是一個使用 pnpm 工作區 (workspace) 的 monorepo，包含以下應用：
 
 - **nbo_adminSite** (套件名稱: `nbo_admin_site`): 管理員後台網站
-- **nbo_orderingSystem** (套件名稱: `nbo_ordering_system`): 訂單處理系統
+- **nbo_orderingSystem** (套件名稱: `nbo_ordering_system`): 下單處理系統
 - **packages/ui**: 共享 UI 元件庫 (套件名稱: `@nbo/ui`)
 
 > **注意**: 資料夾名稱與套件名稱略有不同，在執行指令時請使用套件名稱。
@@ -58,7 +58,7 @@ NBO_Frontend/
 │   │   ├── tsconfig.json       # TypeScript 設定
 │   │   └── vite.config.ts      # Vite 設定檔
 │   │
-│   └── nbo_orderingSystem/     # 訂單系統
+│   └── nbo_orderingSystem/     # 下單系統
 │       ├── public/             # 靜態資源
 │       ├── src/                # 程式碼目錄
 │       │   ├── api/            # API 呼叫相關模組
@@ -139,7 +139,7 @@ pnpm install
      ```bash
      pnpm dev:admin
      ```
-   - 啟動訂單系統：
+   - 啟動下單系統：
      ```bash
      pnpm dev:order
      ```
@@ -151,7 +151,7 @@ pnpm install
 ```bash
 # 建構單一專案
 pnpm build:admin  # 建構管理員後台
-pnpm build:order  # 建構訂單系統
+pnpm build:order  # 建構下單系統
 pnpm build:ui     # 建構共享 UI 元件庫
 
 # 建構所有專案
@@ -165,7 +165,7 @@ pnpm build:all    # 建構所有相依專案，確保正確的建構順序
 # 預覽管理員後台
 pnpm preview:admin
 
-# 預覽訂單系統
+# 預覽下單系統
 pnpm preview:order
 ```
 
@@ -236,7 +236,7 @@ pnpm docker:build
 1. 在本地環境建構所有前端應用
 2. 驗證本地建構結果是否存在
 3. 使用本地建構結果建構管理員後台 Docker 映像檔
-4. 使用本地建構結果建構訂單系統 Docker 映像檔
+4. 使用本地建構結果建構下單系統 Docker 映像檔
 5. 啟動 Docker 容器
 
 如果已完成建構，可以跳過建構步驟：
@@ -256,7 +256,7 @@ pnpm docker:build:win:skip-build
 部署後，可透過以下網址訪問：
 
 - 管理員後台：http://localhost:8080
-- 訂單系統：http://localhost:8081
+- 下單系統：http://localhost:8081
 
 此方式確保開發、測試和生產環境的一致性，特別適合 CI/CD 環境。
 
@@ -271,7 +271,7 @@ pnpm --filter <package-name> <command>
 # 範例: 在管理員後台執行開發伺服器
 pnpm --filter nbo_admin_site dev
 
-# 範例: 在訂單系統執行測試
+# 範例: 在下單系統執行測試
 pnpm --filter nbo_ordering_system test
 
 # 在所有工作區執行相同指令
@@ -290,7 +290,7 @@ pnpm -r test
 執行 `pnpm docker:build` 後，系統會建立以下 Docker 映像檔：
 
 - `nbo-admin-site`: 管理員後台映像檔 (使用本地建構結果)
-- `nbo-ordering-system`: 訂單系統映像檔 (使用本地建構結果)
+- `nbo-ordering-system`: 下單系統映像檔 (使用本地建構結果)
 
 與原先在 Docker 中建構的方式相比，本地建構 + Docker 容器部署的優點：
 
@@ -304,7 +304,7 @@ pnpm -r test
 容器化應用程式使用以下連接埠：
 
 - 管理員後台: `8080` → 容器內部 `80`
-- 訂單系統: `8081` → 容器內部 `80`
+- 下單系統: `8081` → 容器內部 `80`
 
 ### 容器資源管理
 

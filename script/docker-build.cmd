@@ -137,7 +137,7 @@ REM 顯示完成訊息
 echo.
 echo === ✅ 建構完成！ ===
 echo 管理員後台：http://localhost:8080
-echo 訂單系統：http://localhost:8081
+echo 下單系統：http://localhost:8081
 echo.
 echo 💡 提示：可執行下列指令關閉容器：
 echo     docker stop nbo-admin nbo-ordering

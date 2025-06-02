@@ -180,7 +180,7 @@ const Test = () => {
         </div>
 
         <SelectBase
-          selectName="訂單類型"
+          selectName="下單類型"
           selectId="orderType"
           labelWidth="150px"
           labelRow={false}

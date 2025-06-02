@@ -94,7 +94,7 @@ ${VERSION}
 │   │   ├── dist/          # 管理員後台建構結果
 │   │   └── nginx.conf     # Nginx 配置
 │   └── nbo_orderingSystem/
-│       ├── dist/          # 訂單系統建構結果
+│       ├── dist/          # 下單系統建構結果
 │       └── nginx.conf     # Nginx 配置
 │
 ├── script/

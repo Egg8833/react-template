@@ -56,7 +56,7 @@ if [ ! -d "./apps/nbo_adminSite/dist" ]; then
 fi
 
 if [ ! -d "./apps/nbo_orderingSystem/dist" ]; then
-    echo -e "${RED}訂單系統建構結果未找到！${NC}"
+    echo -e "${RED}下單系統建構結果未找到！${NC}"
     exit 1
 fi
 
@@ -73,7 +73,7 @@ if docker ps -a -q --filter name=nbo-admin &> /dev/null; then
 fi
 
 if docker ps -a -q --filter name=nbo-ordering &> /dev/null; then
-    echo -e "${CYAN}停止並移除訂單系統容器...${NC}"
+    echo -e "${CYAN}停止並移除下單系統容器...${NC}"
     docker stop nbo-ordering || true
     docker rm nbo-ordering || true
 fi
@@ -84,7 +84,7 @@ if docker images -q nbo-admin-site:latest &> /dev/null; then
 fi
 
 if docker images -q nbo-ordering-system:latest &> /dev/null; then
-    echo -e "${CYAN}移除訂單系統映像檔...${NC}"
+    echo -e "${CYAN}移除下單系統映像檔...${NC}"
     docker rmi -f nbo-ordering-system:latest || true
 fi
 
@@ -102,10 +102,10 @@ docker build -t nbo-admin-site:latest -f Dockerfile . || {
 cd - > /dev/null
 
 echo
-echo -e "${CYAN}建構訂單系統 Docker 映像檔...${NC}"
+echo -e "${CYAN}建構下單系統 Docker 映像檔...${NC}"
 cd ./apps/nbo_orderingSystem
 docker build -t nbo-ordering-system:latest -f Dockerfile . || {
-    echo -e "${RED}訂單系統 Docker 映像檔建構失敗！${NC}"
+    echo -e "${RED}下單系統 Docker 映像檔建構失敗！${NC}"
     exit 1
 }
 cd - > /dev/null
@@ -119,7 +119,7 @@ echo -e "${CYAN}啟動管理員後台容器 (連接埠 8080)...${NC}"
 docker run -d -p 8080:80 --name nbo-admin nbo-admin-site:latest
 
 echo
-echo -e "${CYAN}啟動訂單系統容器 (連接埠 8081)...${NC}"
+echo -e "${CYAN}啟動下單系統容器 (連接埠 8081)...${NC}"
 docker run -d -p 8081:80 --name nbo-ordering nbo-ordering-system:latest
 
 echo
@@ -130,6 +130,6 @@ docker ps --filter name=nbo-admin --filter name=nbo-ordering
 echo
 echo -e "${GREEN}=== 建構完成！ ===${NC}"
 echo -e "${CYAN}管理員後台網址：http://localhost:8080${NC}"
-echo -e "${CYAN}訂單系統網址：http://localhost:8081${NC}"
+echo -e "${CYAN}下單系統網址：http://localhost:8081${NC}"
 echo
 echo -e "${YELLOW}提示：完成測試後，可執行 'docker stop nbo-admin nbo-ordering' 來停止容器${NC}"
