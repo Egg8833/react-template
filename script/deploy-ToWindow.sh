@@ -1,6 +1,6 @@
 #!/bin/bash
 # 產生部署資料夾的腳本
-# 此腳本會在當前目錄中建立一個 deploy-linux 資料夾，只包含部署到 Linux 環境所需的檔案
+# 此腳本會在當前目錄中建立一個 deploy-ToWindow 資料夾，只包含部署到 Linux 環境所需的檔案
 
 set -e
 
@@ -11,7 +11,7 @@ RED='\033[1;31m'
 NC='\033[0m'
 
 # 目標部署資料夾名稱
-DEPLOY_DIR="deploy-linux"
+DEPLOY_DIR="deploy-ToWindow"
 
 pnpm build
 

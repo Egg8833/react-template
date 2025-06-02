@@ -87,7 +87,7 @@ NBO_Frontend/
 │   ├── docker-build.cmd        # Windows 環境下 Docker 建構腳本
 │   ├── docker-build.sh         # Docker 環境中建構腳本
 │ 
-├── deploy-linux/               # 部署專用資料夾 (腳本生成的資料夾)
+├── deploy-ToWindow/               # 部署專用資料夾 (腳本生成的資料夾)
 │   ├── apps/                   # 部署用應用程式
 │   ├── script/                 # 部署腳本
 │   ├── package.json            # 簡化版套件定義檔
@@ -190,7 +190,7 @@ pnpm docker:stop
 
 此專案包含多個位於 `script/` 資料夾中的腳本，用於自動化常見工作：
 
-### deploy-linux.sh
+### deploy-ToWindow.sh
 
 產生部署資料夾的腳本：
 
@@ -204,7 +204,7 @@ pnpm deploy:linux:win
 
 執行以下操作：
 1. 自動執行建構
-2. 在專案根目錄建立 `deploy-linux` 資料夾
+2. 在專案根目錄建立 `deploy-ToWindow` 資料夾
 3. 複製所有部署必要的檔案到該資料夾中（包括建構結果、Docker 和 Nginx 設定）
 4. 生成簡化版 package.json 和說明文件
 
@@ -373,7 +373,7 @@ pnpm deploy:linux:win
 ```
 
 此腳本會：
-1. 在專案根目錄建立一個 `deploy-linux` 資料夾
+1. 在專案根目錄建立一個 `deploy-ToWindow` 資料夾
 2. 移除所有非部署必要的檔案（如原始碼、測試檔案等）
 3. 只保留以下內容：
    - 最新建構的應用程式（dist 目錄）
@@ -382,6 +382,6 @@ pnpm deploy:linux:win
    - 精簡版的 package.json 和 README.md
 5. 提交變更並返回原始分支
 
-在 Linux 生產伺服器上，只需將產生的 `deploy-linux` 資料夾複製到伺服器上，然後執行 `npm run deploy` 即可部署最新版本。
+在 Linux 生產伺服器上，只需將產生的 `deploy-ToWindow` 資料夾複製到伺服器上，然後執行 `npm run deploy` 即可部署最新版本。
 
 

@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "composite": true, /* for project references */
     "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
