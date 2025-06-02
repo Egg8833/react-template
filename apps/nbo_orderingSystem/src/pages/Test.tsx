@@ -19,7 +19,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { SnackbarOrigin } from '@mui/material/Snackbar';
 import CustomSnackbar from '@/components/CustomSnackbar'
 import DraggableTable from "@/components/DraggableTable";
-import { alertText } from '@/utils/useSwal'
+import { alertText } from '@nbo/ui'
 
 interface RowData {
   id: string;

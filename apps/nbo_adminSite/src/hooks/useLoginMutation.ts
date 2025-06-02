@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { postUserLogin } from '@/api/user'
-import { alertSucc, alertErr } from '@/utils/useSwal'
+import { alertSucc, alertErr } from '@nbo/ui'
 import type { LoginPayload, LoginResponse } from '@/type/auth'
 
 export const useLoginMutation = () => {

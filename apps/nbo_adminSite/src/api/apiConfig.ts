@@ -3,7 +3,7 @@ import axios, {
   InternalAxiosRequestConfig
 } from 'axios'
 import { API_TIMEOUT_TIME } from '@/constants'
-import { alertErr } from '@/utils/useSwal'
+import { alertErr } from '@nbo/ui'
 import { getItem } from '@/utils/storage'
 
 // ✅ 建立 API 實例

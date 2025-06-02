@@ -22,3 +22,10 @@ export function alertErr(options: SweetAlertOptions) {
     ...options,
   })
 }
+
+export function alertText(options: SweetAlertOptions) {
+  return Swal.fire({
+    position: 'center',
+    ...options,
+  })
+}

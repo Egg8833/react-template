@@ -2,11 +2,12 @@
 
 此專案使用 pnpm 工作區管理多個相關應用，採用 monorepo 架構進行開發。
 
-> **最後更新日期**: 2025年5月17日
+> **最後更新日期**: 2025 年 5 月 17 日
 
 ## 專案簡介
 
 此專案包含兩個主要前端應用：
+
 - **管理員後台 (nbo_adminSite)**: 系統管理員使用的後台介面
 - **訂單系統 (nbo_orderingSystem)**: 處理訂單的專用應用程式
 
@@ -86,7 +87,7 @@ NBO_Frontend/
 ├── script/                     # 自動化腳本
 │   ├── docker-build.cmd        # Windows 環境下 Docker 建構腳本
 │   ├── docker-build.sh         # Docker 環境中建構腳本
-│ 
+│
 ├── deploy-ToWindow/               # 部署專用資料夾 (腳本生成的資料夾)
 │   ├── apps/                   # 部署用應用程式
 │   ├── script/                 # 部署腳本
@@ -123,16 +124,27 @@ cd nbo-frontend
 pnpm install
 ```
 
-
 ### 3. 本地開發
 
-```bash
-# 啟動管理員後台開發伺服器
-pnpm dev:admin
+#### 第一次開發流程
 
-# 啟動訂單系統開發伺服器
-pnpm dev:order
-```
+1. **建構所有專案（初始化一次即可）**
+
+   ```bash
+   pnpm build
+   ```
+
+2. **啟動開發伺服器（可同時或分別啟動）**
+   - 啟動管理員後台：
+     ```bash
+     pnpm dev:admin
+     ```
+   - 啟動訂單系統：
+     ```bash
+     pnpm dev:order
+     ```
+
+> 建議：初次開發時先執行 `pnpm build`，之後只需直接啟動對應的開發伺服器即可。
 
 ### 4. 建構專案
 
@@ -203,6 +215,7 @@ pnpm deploy:linux:win
 ```
 
 執行以下操作：
+
 1. 自動執行建構
 2. 在專案根目錄建立 `deploy-ToWindow` 資料夾
 3. 複製所有部署必要的檔案到該資料夾中（包括建構結果、Docker 和 Nginx 設定）
@@ -219,6 +232,7 @@ pnpm docker:build
 ```
 
 執行以下操作：
+
 1. 在本地環境建構所有前端應用
 2. 驗證本地建構結果是否存在
 3. 使用本地建構結果建構管理員後台 Docker 映像檔
@@ -226,11 +240,13 @@ pnpm docker:build
 5. 啟動 Docker 容器
 
 如果已完成建構，可以跳過建構步驟：
+
 ```bash
 pnpm docker:build:skip-build
 ```
 
 Windows 環境下使用：
+
 ```cmd
 pnpm docker:build:win
 # 或跳過建構
@@ -238,6 +254,7 @@ pnpm docker:build:win:skip-build
 ```
 
 部署後，可透過以下網址訪問：
+
 - 管理員後台：http://localhost:8080
 - 訂單系統：http://localhost:8081
 
@@ -271,6 +288,7 @@ pnpm -r test
 ### Docker 映像檔
 
 執行 `pnpm docker:build` 後，系統會建立以下 Docker 映像檔：
+
 - `nbo-admin-site`: 管理員後台映像檔 (使用本地建構結果)
 - `nbo-ordering-system`: 訂單系統映像檔 (使用本地建構結果)
 
@@ -284,6 +302,7 @@ pnpm -r test
 ### 容器網路設定
 
 容器化應用程式使用以下連接埠：
+
 - 管理員後台: `8080` → 容器內部 `80`
 - 訂單系統: `8081` → 容器內部 `80`
 
@@ -373,6 +392,7 @@ pnpm deploy:linux:win
 ```
 
 此腳本會：
+
 1. 在專案根目錄建立一個 `deploy-ToWindow` 資料夾
 2. 移除所有非部署必要的檔案（如原始碼、測試檔案等）
 3. 只保留以下內容：
@@ -380,8 +400,6 @@ pnpm deploy:linux:win
    - Nginx 配置檔案
    - Docker 部署腳本
    - 精簡版的 package.json 和 README.md
-5. 提交變更並返回原始分支
+4. 提交變更並返回原始分支
 
 在 Linux 生產伺服器上，只需將產生的 `deploy-ToWindow` 資料夾複製到伺服器上，然後執行 `npm run deploy` 即可部署最新版本。
-
-

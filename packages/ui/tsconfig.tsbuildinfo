@@ -1,1 +1,1 @@
-{"root":["./src/customdatatable.tsx","./src/index.ts","./src/materialwrapper.tsx"],"version":"5.7.3"}
+{"root":["./src/customdatatable.tsx","./src/index.ts","./src/materialwrapper.tsx","./src/useswal.ts","./src/utils/storage.ts","./src/utils/useswal.ts"],"version":"5.7.3"}
