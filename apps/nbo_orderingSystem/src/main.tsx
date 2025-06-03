@@ -2,7 +2,7 @@ import {StrictMode} from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import {MaterialWrapper} from '@nbo/ui'
+import {MaterialWrapper} from '@nbo/src'
 import 'virtual:uno.css'
 import {TanstackQuery} from './lib/tanstackQuery.tsx'
 

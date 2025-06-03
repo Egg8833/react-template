@@ -2,10 +2,10 @@
   "name": "nbo-frontend",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
-  "workspaces": [
-    "apps/*"
-  ],  "scripts": {
+  "type": "module",  "workspaces": [
+    "apps/*",
+    "packages"
+  ],"scripts": {
     "dev:admin": "pnpm --filter nbo_admin_site dev",
     "dev:order": "pnpm --filter nbo_ordering_system dev",
     "build": "pnpm -r run build",

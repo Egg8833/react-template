@@ -152,15 +152,16 @@ importers:
     dependencies:
       '@nbo/ui':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../packages
 
   apps/nbo_orderingSystem:
     dependencies:
       '@nbo/ui':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../packages
 
-  packages/ui:
+  packages:
+
     dependencies:
       '@emotion/react':
         specifier: ^11.0.0
@@ -183,6 +184,7 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
+
     devDependencies:
       '@types/react':
         specifier: ^19.0.0

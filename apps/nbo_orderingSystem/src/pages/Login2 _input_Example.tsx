@@ -10,7 +10,7 @@ import SelectBaseFormHook from '@/components/RHForm/SelectBaseFormHook'
 import InputBaseFormHook from '@/components/RHForm/InputBaseFormHook'
 import SelectBase from '@/components/SelectBase'
 import InputBase from '@/components/InputBase'
-import { CaptchaCanvas } from '@nbo/ui'
+import { CaptchaCanvas } from '@nbo/src'
 import ToggleButtonGroup from '@/components/ToggleButtonGroup'
 import CustomSnackbar from '@/components/CustomSnackbar'
 

@@ -2,7 +2,7 @@
 
 此專案使用 pnpm 工作區管理多個相關應用，採用 monorepo 架構進行開發。
 
-> **最後更新日期**: 2025 年 5 月 17 日
+> **最後更新日期**: 2025 年 6 月 3 日
 
 ## 專案簡介
 
@@ -15,12 +15,12 @@
 
 ## 環境需求
 
-- **Node.js**: >= 18.x (建議使用 22.14.0 或更新版本)
-- **pnpm**: >= 8.x (建議使用 10.11.0 或更新版本)
+- **Node.js**: >= 18.x (建議使用 22.14.0)
+- **pnpm**: >= 8.x (建議使用最新版本)
 - **作業系統**: Windows / macOS / Linux
 - **Docker**: 用於容器化部署 (選用)
 
-> **提示**: 此專案使用 `.nvmrc` 檔案指定 Node.js 版本。如果您安裝了 nvm，可以使用 `nvm use` 命令自動切換到正確的 Node.js 版本。
+> **提示**: 此專案使用 `.nvmrc` 檔案指定 Node.js 版本 (22.14.0)。如果您安裝了 nvm，可以使用 `nvm use` 命令自動切換到正確的 Node.js 版本。
 
 ## 專案架構
 
@@ -28,7 +28,7 @@
 
 - **nbo_adminSite** (套件名稱: `nbo_admin_site`): 管理員後台網站
 - **nbo_orderingSystem** (套件名稱: `nbo_ordering_system`): 下單處理系統
-- **packages/ui**: 共享 UI 元件庫 (套件名稱: `@nbo/ui`)
+- **packages** (套件名稱: `@nbo/ui`): 共享 UI 元件庫
 
 > **注意**: 資料夾名稱與套件名稱略有不同，在執行指令時請使用套件名稱。
 
@@ -36,7 +36,6 @@
 
 ```
 NBO_Frontend/
-├── .nvmrc                      # Node.js 版本控制檔案
 ├── apps/                       # 應用程式目錄
 │   ├── nbo_adminSite/          # 管理員後台
 │   │   ├── public/             # 靜態資源
@@ -44,6 +43,7 @@ NBO_Frontend/
 │   │   │   ├── api/            # API 呼叫相關模組
 │   │   │   ├── assets/         # 資源檔案 (圖片等)
 │   │   │   ├── components/     # 元件
+│   │   │   │   └── RHForm/     # React Hook Form 元件
 │   │   │   ├── constants/      # 常數定義
 │   │   │   ├── hooks/          # 自定義 Hooks
 │   │   │   ├── layout/         # 頁面佈局元件
@@ -53,10 +53,15 @@ NBO_Frontend/
 │   │   │   ├── type/           # 型別定義
 │   │   │   └── utils/          # 共用工具函式
 │   │   ├── tests/              # 測試檔案
-│   │   ├── Dockerfile    # Docker 設定檔
+│   │   │   ├── components/     # 元件測試
+│   │   │   └── pages/          # 頁面測試
+│   │   ├── Dockerfile          # Docker 設定檔
+│   │   ├── nginx.conf          # Nginx 配置檔
 │   │   ├── index.html          # HTML 進入點
 │   │   ├── tsconfig.json       # TypeScript 設定
-│   │   └── vite.config.ts      # Vite 設定檔
+│   │   ├── uno.config.ts       # UnoCSS 設定
+│   │   ├── vite.config.ts      # Vite 設定檔
+│   │   └── vitest.config.ts    # Vitest 測試設定
 │   │
 │   └── nbo_orderingSystem/     # 下單系統
 │       ├── public/             # 靜態資源
@@ -73,29 +78,47 @@ NBO_Frontend/
 │       │   ├── type/           # 型別定義
 │       │   └── utils/          # 共用工具函式
 │       ├── tests/              # 測試檔案
-│       ├── Dockerfile   # Docker 設定檔
+│       │   ├── components/     # 元件測試
+│       │   └── pages/          # 頁面測試
+│       ├── Dockerfile          # Docker 設定檔
+│       ├── nginx.conf          # Nginx 配置檔
 │       ├── index.html          # HTML 進入點
 │       ├── tsconfig.json       # TypeScript 設定
-│       └── vite.config.ts      # Vite 設定檔
+│       ├── uno.config.ts       # UnoCSS 設定
+│       ├── vite.config.ts      # Vite 設定檔
+│       ├── vitest.config.ts    # Vitest 測試設定
+│       └── conventionalCommit.md # Git 提交規範
 │
 ├── packages/                   # 共享套件
-│   └── ui/                     # 共享 UI 元件
-│       ├── src/                # 程式碼目錄
-│       │   └── index.ts        # 匯出所有元件
-│       └── tsconfig.json       # TypeScript 設定
+│   ├── src/                    # 程式碼目錄
+│   │   ├── components/         # 共享元件
+│   │   ├── hooks/              # 共享 Hooks
+│   │   ├── lib/                # 共享函式庫
+│   │   ├── utils/              # 共享工具函式
+│   │   └── index.ts            # 匯出所有元件
+│   ├── package.json            # 套件定義檔
+│   └── tsconfig.json           # TypeScript 設定
+│
+├── docs/                       # 文檔目錄
+│   └── docker-build-guide.md   # Docker 建構詳細指南
 │
 ├── script/                     # 自動化腳本
+│   ├── deploy-ToWindow.sh      # 產生部署資料夾腳本
 │   ├── docker-build.cmd        # Windows 環境下 Docker 建構腳本
-│   ├── docker-build.sh         # Docker 環境中建構腳本
+│   └── docker-build.sh         # Unix/Linux 環境下 Docker 建構腳本
 │
-├── deploy-ToWindow/               # 部署專用資料夾 (腳本生成的資料夾)
+├── deploy-ToWindow/            # 部署專用資料夾 (腳本生成)
 │   ├── apps/                   # 部署用應用程式
 │   ├── script/                 # 部署腳本
 │   ├── package.json            # 簡化版套件定義檔
 │   └── README.md               # 部署說明
 │
 ├── package.json                # 根目錄套件定義檔
-└── pnpm-workspace.yaml         # pnpm 工作區設定
+├── pnpm-workspace.yaml         # pnpm 工作區設定
+├── pnpm-lock.yaml              # pnpm 依賴鎖定檔
+├── tsconfig.base.json          # TypeScript 基礎設定
+├── .nvmrc                      # Node.js 版本控制檔案
+└── README.md                   # 專案說明文件
 ```
 
 ## 快速開始
@@ -109,16 +132,16 @@ nvm use        # 切換到 .nvmrc 中指定的 Node.js 版本
 
 # 或直接安裝 Node.js v22.14.0 (https://nodejs.org/)
 
-# 安裝 pnpm v10.11.0
-npm install -g pnpm@10.11.0
+# 安裝 pnpm
+npm install -g pnpm
 ```
 
 ### 2. 安裝專案相依套件
 
 ```bash
 # 複製專案
-git clone <repository-url> nbo-frontend
-cd nbo-frontend
+git clone <repository-url> NBO_Frontend
+cd NBO_Frontend
 
 # 安裝所有相依套件
 pnpm install
@@ -197,6 +220,8 @@ pnpm docker:stop
 - **Zustand**: 輕量級的狀態管理工具
 - **React Query (TanStack Query)**: 資料請求和快取管理
 - **Vitest**: 單元測試框架，支援 React 元件測試
+- **React Router**: 路由管理
+- **Docker**: 容器化部署支援
 
 ## 腳本說明
 
@@ -207,11 +232,8 @@ pnpm docker:stop
 產生部署資料夾的腳本：
 
 ```bash
-# Linux/macOS 環境下執行
-pnpm deploy:linux
-
-# Windows 環境下執行
-pnpm deploy:linux:win
+# 執行部署資料夾產生腳本
+pnpm deploy:window
 ```
 
 執行以下操作：
@@ -330,7 +352,29 @@ pnpm install --force
 npx tsc --noEmit
 ```
 
-### 3. Docker 容器無法啟動
+### 3. 權限問題 (Linux/macOS)
+
+如果在執行腳本時遇到權限問題：
+
+```bash
+# 為腳本添加執行權限
+chmod +x script/*.sh
+
+# 然後重新執行相關命令
+```
+
+### 4. pnpm 工作區問題
+
+如果工作區相依性出現問題：
+
+```bash
+# 清理並重新安裝
+rm -rf node_modules apps/*/node_modules packages/*/node_modules
+pnpm store prune
+pnpm install
+```
+
+### 5. Docker 容器無法啟動
 
 檢查連接埠是否被佔用：
 
@@ -342,7 +386,7 @@ netstat -ano | findstr "8080 8081"
 netstat -tuln | grep "8080\|8081"
 ```
 
-需要時，請修改 `docker-build.sh` 中的連接埠映射。
+需要時，請修改 `script/docker-build.sh` 中的連接埠映射。
 
 ## 開發指南
 
@@ -360,7 +404,7 @@ pnpm lint:fix
 
 ### 元件開發
 
-共享元件應放置在 `packages/ui` 目錄下，並在 `index.ts` 中正確匯出。開發新元件時，請遵循以下最佳實踐：
+共享元件應放置在 `packages/src/components` 目錄下，並在 `packages/src/index.ts` 中正確匯出。開發新元件時，請遵循以下最佳實踐：
 
 1. 使用 TypeScript 型別定義
 2. 提供完整的 Props 介面
@@ -384,11 +428,8 @@ pnpm lint:fix
 
 ```bash
 # 1. 確保已經建構最新版本 (腳本會自動執行建構)
-# 2. 在 Linux/macOS 環境下執行
-pnpm deploy:linux
-
-# 或在 Windows 環境下執行
-pnpm deploy:linux:win
+# 2. 執行部署資料夾產生腳本
+pnpm deploy:window
 ```
 
 此腳本會：
@@ -403,3 +444,13 @@ pnpm deploy:linux:win
 4. 提交變更並返回原始分支
 
 在 Linux 生產伺服器上，只需將產生的 `deploy-ToWindow` 資料夾複製到伺服器上，然後執行 `npm run deploy` 即可部署最新版本。
+
+## 文檔說明
+
+### docs/ 資料夾
+
+專案包含詳細的文檔說明，位於 `docs/` 資料夾中：
+
+- **docker-build-guide.md**: Docker 本地建構部署流程詳細指南，說明如何使用本地建構結果來建立並部署 Docker 容器
+
+這些文檔提供了比 README 更詳細的操作步驟和技術說明，建議在進行相關操作前先閱讀對應的文檔。

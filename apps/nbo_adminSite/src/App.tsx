@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Layout from "@/layout/Layout";
 import AccountManagement from "@/pages/AccountManagement";
 import ProductList from "@/pages/ProductList";
-
 import Permissions from "@/pages/Permissions";
 import Test from "@/pages/Test";
 import Login from "@/pages/Login";

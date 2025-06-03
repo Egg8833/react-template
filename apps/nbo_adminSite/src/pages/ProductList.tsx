@@ -1,7 +1,7 @@
 import React from 'react'
 import { GridColDef } from '@mui/x-data-grid'
 import { Button, Box } from '@mui/material'
-import { CustomDataTable } from '@nbo/ui'
+import { CustomDataTable } from '@nbo/src'
 
 // 第一張圖片表格的欄位設定
 const columnsFutures: GridColDef[] = [

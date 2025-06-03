@@ -1,7 +1,7 @@
 import React from 'react'
 import { GridColDef} from '@mui/x-data-grid'
 import {Button, Box} from '@mui/material'
-import { CustomDataTable } from '@nbo/ui'
+import { CustomDataTable } from '@nbo/src'
 interface Member {
   id: number
   account: string
