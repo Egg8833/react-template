@@ -1,5 +1,7 @@
 import React from 'react'
-import { createTheme, ThemeProvider, CssBaseline } from '@mui/material'
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {

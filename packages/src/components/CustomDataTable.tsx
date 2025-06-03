@@ -7,7 +7,7 @@ import {
   GridCsvExportOptions,
   useGridApiRef,
 } from '@mui/x-data-grid'
-import { Button } from '@mui/material'
+import Button from '@mui/material/Button';
 import { SxProps, Theme } from '@mui/material/styles';
 
 interface CustomDataTableProps {

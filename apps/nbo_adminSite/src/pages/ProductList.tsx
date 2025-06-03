@@ -1,6 +1,7 @@
 import React from 'react'
 import { GridColDef } from '@mui/x-data-grid'
-import { Button, Box } from '@mui/material'
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { CustomDataTable } from '@nbo/src'
 
 // 第一張圖片表格的欄位設定

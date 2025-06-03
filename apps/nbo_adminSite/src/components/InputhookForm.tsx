@@ -1,5 +1,5 @@
 import {useForm} from 'react-hook-form'
-import {TextField} from '@mui/material'
+import TextField from '@mui/material/TextField';
 import {zodResolver} from '@hookform/resolvers/zod'
 import {FormData} from '@/type/schema'
 import {schema} from '@/type/schema'

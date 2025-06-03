@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Button} from '@mui/material'
+import Button from '@mui/material/Button';
 import {useForm,FormProvider,Controller} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {FormData,schema,defaultValues} from '@/type/schema'

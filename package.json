@@ -2,22 +2,24 @@
   "name": "nbo-frontend",
   "private": true,
   "version": "1.0.0",
-  "type": "module",  "workspaces": [
+  "type": "module",
+  "workspaces": [
     "apps/*",
     "packages"
-  ],"scripts": {
+  ],
+  "scripts": {
     "dev:admin": "pnpm --filter nbo_admin_site dev",
     "dev:order": "pnpm --filter nbo_ordering_system dev",
     "build": "pnpm -r run build",
     "build:admin": "pnpm --filter nbo_admin_site build",
     "build:order": "pnpm --filter nbo_ordering_system build",
-    "build:ui": "pnpm --filter @nbo/ui build",    
+    "build:ui": "pnpm --filter @nbo/ui build",
     "build:all": "pnpm -r --filter=nbo_admin_site... --filter=nbo_ordering_system... --filter=@nbo/ui... build",
     "preview:admin": "pnpm --filter nbo_admin_site preview",
     "preview:order": "pnpm --filter nbo_ordering_system preview",
     "docker:build": "bash ./script/docker-build.sh",
-    "docker:build:skip-build": "bash ./script/docker-build.sh --skip-build",    
-    "docker:build:win": ".\\script\\docker-build.cmd",    
+    "docker:build:skip-build": "bash ./script/docker-build.sh --skip-build",
+    "docker:build:win": ".\\script\\docker-build.cmd",
     "docker:build:win:skip-build": ".\\script\\docker-build.cmd --skip-build",
     "docker:stop": "docker stop nbo-admin nbo-ordering",
     "deploy:window": "bash ./script/deploy-ToWindow.sh"
@@ -61,6 +63,7 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react-swc": "^3.8.0",
     "@vitest/ui": "^3.0.8",
+    "babel-plugin-import": "^1.13.8",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
