@@ -1,1 +1,1 @@
-{"root":["./src/customdatatable.tsx","./src/index.ts","./src/materialwrapper.tsx","./src/useswal.ts","./src/utils/storage.ts","./src/utils/useswal.ts"],"version":"5.7.3"}
+{"root":["./src/index.ts","./src/components/captchacanvas.tsx","./src/components/customdatatable.tsx","./src/lib/materialwrapper.tsx","./src/utils/storage.ts","./src/utils/useswal.ts"],"version":"5.7.3"}
