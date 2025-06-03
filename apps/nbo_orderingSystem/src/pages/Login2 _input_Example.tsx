@@ -1,6 +1,10 @@
 import React, {useState} from 'react'
 
-import {Button, Typography, Paper, Box, FormControlLabel} from '@mui/material'
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox'
 
 import {useForm, FormProvider, SubmitHandler} from 'react-hook-form'

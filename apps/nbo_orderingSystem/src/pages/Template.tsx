@@ -1,4 +1,6 @@
-import {Box, Paper, Button} from '@mui/material'
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 const Delegation = () => {
   return (

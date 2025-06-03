@@ -153,13 +153,13 @@ importers:
 
   apps/nbo_adminSite:
     dependencies:
-      '@nbo/ui':
+      '@nbo/src':
         specifier: workspace:*
         version: link:../../packages
 
   apps/nbo_orderingSystem:
     dependencies:
-      '@nbo/ui':
+      '@nbo/src':
         specifier: workspace:*
         version: link:../../packages
 

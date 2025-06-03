@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio } from '@mui/material';
+import Radio from '@mui/material/Radio';
 
 interface RadioButtonWithLabelProps {
   label: string;

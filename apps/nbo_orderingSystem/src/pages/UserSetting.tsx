@@ -1,4 +1,6 @@
-import { Button, Paper, Box } from '@mui/material'
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import InputBaseFormHook from '@/components/RHForm/InputBaseFormHook'

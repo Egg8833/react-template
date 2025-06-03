@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Box, Paper, Button } from '@mui/material';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 

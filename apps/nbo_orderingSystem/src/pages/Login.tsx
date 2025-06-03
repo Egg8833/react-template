@@ -1,4 +1,7 @@
-import { Button, Typography, Paper, Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import {FormLoginData,schema,defaultValues} from '@/type/loginSchema'
 import {zodResolver} from '@hookform/resolvers/zod'

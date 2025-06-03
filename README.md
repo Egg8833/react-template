@@ -28,7 +28,7 @@
 
 - **nbo_adminSite** (套件名稱: `nbo_admin_site`): 管理員後台網站
 - **nbo_orderingSystem** (套件名稱: `nbo_ordering_system`): 下單處理系統
-- **packages** (套件名稱: `@nbo/ui`): 共享 UI 元件庫
+- **packages** (套件名稱: `@nbo/src`): 共享 UI 元件庫
 
 > **注意**: 資料夾名稱與套件名稱略有不同，在執行指令時請使用套件名稱。
 

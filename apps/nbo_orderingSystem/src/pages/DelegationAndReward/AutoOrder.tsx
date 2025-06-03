@@ -1,4 +1,6 @@
-import { Box, Paper, Button } from '@mui/material'
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import React, { useState } from 'react'
 import SelectBase from '@/components/RHForm/SelectBaseFormHook'
 import InputBase from '@/components/RHForm/InputBaseFormHook'

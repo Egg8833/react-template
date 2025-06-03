@@ -1,7 +1,8 @@
 // CustomSnackbar.tsx
 import React from 'react'
 import Snackbar from '@mui/material/Snackbar'
-import MuiAlert, {AlertColor, AlertProps} from '@mui/material/Alert'
+import MuiAlert from '@mui/material/Alert';
+import type { AlertColor, AlertProps } from '@mui/material/Alert';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
