@@ -8,7 +8,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+apps\nbo_adminSite\node_modules
+apps\nbo_orderingSystem\node_modules
+packages\node_modules
 dist
+apps\nbo_adminSite\dist
+apps\nbo_orderingSystem\dist
+packages\dist
 dist-ssr
 *.local
 
